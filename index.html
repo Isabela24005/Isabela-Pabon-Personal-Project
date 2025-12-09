@@ -36,7 +36,7 @@
             align-items: center;
             background: none;
             padding: 0 15px;
-            height: 64px;
+            height: 70px; /* Taller navbar for easier touch */
             position: relative;
             z-index: 1000;
             justify-content: space-between;
@@ -48,17 +48,31 @@
             color: #fff;
             flex-shrink: 0;
             white-space: nowrap;
+            padding: 10px; /* Bigger touch area */
         }
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: 5px;
+            padding: 12px; /* Bigger padding */
+            margin: 5px;
+            width: 50px; /* Wider hit area */
+            height: 50px; /* Taller hit area */
+            justify-content: center;
+            align-items: center;
             z-index: 1001;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1); /* Subtle background for visibility */
+            backdrop-filter: blur(10px);
+            transition: background 0.2s;
+        }
+        .hamburger:hover,
+        .hamburger:active {
+            background: rgba(255,255,255,0.25);
         }
         .hamburger span {
-            width: 25px;
-            height: 3px;
+            width: 28px; /* Bigger lines */
+            height: 4px; /* Thicker lines */
             background: #fff;
             margin: 3px 0;
             transition: 0.3s;
@@ -78,17 +92,20 @@
         .nav-link {
             color: #fff;
             text-decoration: none;
-            padding: 8px 10px;
-            border-radius: 6px;
+            padding: 12px 16px; /* Bigger padding */
+            border-radius: 8px; /* Bigger radius */
             transition: background 0.22s;
             white-space: nowrap;
+            min-height: 44px; /* Minimum touch target size */
+            display: flex;
+            align-items: center;
         }
-        .nav-link:hover { background: #1a2039; }
+        .nav-link:hover, .nav-link:active { background: #1a2039; }
         .dropdown {
             display: none;
             position: absolute;
             left: 0; top: 100%;
-            min-width: 180px;
+            min-width: 200px; /* Wider dropdown */
             background: rgba(0,0,0,0.77);
             border-radius: 0 0 14px 14px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.18);
@@ -102,12 +119,15 @@
         .dropdown-link {
             display: block;
             color: #fff;
-            padding: 9px 19px;
+            padding: 14px 20px; /* Much bigger padding */
             text-decoration: none;
-            font-size: 0.95em;
+            font-size: 1em;
             transition: background 0.15s;
+            min-height: 48px; /* Bigger touch targets */
+            display: flex;
+            align-items: center;
         }
-        .dropdown-link:hover {
+        .dropdown-link:hover, .dropdown-link:active {
             background: #27316a;
             color: #ff0101;
         }
@@ -170,6 +190,11 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 0.98rem;
+            padding: 8px;
+            display: block;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
         }
         .news-image-wrap {
             margin-top: 10px;
@@ -206,8 +231,7 @@
                 font-size: 0.9rem;
             }
             .nav-link {
-                padding: 6px 8px;
-                font-size: 0.9rem;
+                padding: 10px 12px;
             }
             .logo {
                 font-size: 1.3rem;
@@ -218,7 +242,7 @@
             }
         }
 
-        /* Mobile/Tablet (768px and below) - FIXED! */
+        /* Mobile/Tablet (768px and below) */
         @media (max-width: 768px) {
             .hamburger {
                 display: flex !important;
@@ -226,16 +250,16 @@
             
             .nav-menu {
                 position: fixed !important;
-                top: 64px !important;
+                top: 70px !important; /* Adjusted for taller navbar */
                 left: 0 !important;
                 width: 100vw !important;
-                height: calc(100vh - 64px) !important;
+                height: calc(100vh - 70px) !important;
                 background: rgba(10,15,26,0.98) !important;
                 flex-direction: column !important;
                 justify-content: flex-start !important;
                 align-items: center !important;
                 gap: 0 !important;
-                padding: 20px 0 !important;
+                padding: 30px 0 !important; /* More padding */
                 transform: translateY(-100%) !important;
                 transition: transform 0.3s ease !important;
                 z-index: 999 !important;
@@ -247,14 +271,15 @@
             }
             
             .nav-item {
-                width: 90% !important;
+                width: 95% !important;
                 text-align: center !important;
             }
             
             .nav-link {
                 display: block !important;
-                padding: 15px !important;
-                font-size: 1.1rem !important;
+                padding: 20px 15px !important; /* HUGE touch areas */
+                font-size: 1.2rem !important;
+                min-height: 56px !important;
             }
             
             .dropdown {
@@ -267,8 +292,15 @@
             }
             
             .nav-item:hover .dropdown,
-            .nav-item:focus-within .dropdown {
+            .nav-item:focus-within .dropdown,
+            .nav-item:active .dropdown {
                 display: block !important;
+            }
+            
+            .dropdown-link {
+                padding: 18px 25px !important; /* Extra big */
+                min-height: 56px !important;
+                font-size: 1.1rem !important;
             }
             
             .latest-news-grid {
@@ -277,14 +309,14 @@
             .main-content {
                 margin-left: 10px;
                 margin-right: 10px;
-                margin-top: 70px;
+                margin-top: 80px; /* Adjusted */
             }
             .intro-panel { 
-                padding: 21px 12px; 
+                padding: 24px 16px; /* Bigger touch area */
                 max-width: 98vw;
             }
             .hero-title { 
-                font-size: 1.35rem; 
+                font-size: 1.45rem; 
             }
         }
         @media (max-width: 450px) {
@@ -439,7 +471,7 @@
         menu.classList.toggle('active');
     }
     
-    // Close menu when clicking a link
+    // Close menu when clicking a link or outside
     document.addEventListener('click', function(event) {
         const menu = document.getElementById('navMenu');
         const hamburger = document.querySelector('.hamburger');
@@ -450,4 +482,5 @@
     </script>
 </body>
 </html>
+
 
