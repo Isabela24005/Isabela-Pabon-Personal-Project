@@ -34,18 +34,33 @@
         .navbar {
             display: flex;
             align-items: center;
-            background:none;
-            padding: 0 40px;
+            background: none;
+            padding: 0 20px;
             height: 64px;
             position: relative;
             z-index: 10;
+            justify-content: space-between;
         }
         .logo {
             font-size: 1.5rem;
             font-weight: 900;
             letter-spacing: 2px;
             color: #fff;
-            margin-right: 38px;
+            flex-shrink: 0;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
         }
         .nav-menu {
             display: flex;
@@ -70,7 +85,7 @@
             position: absolute;
             left: 0; top: 100%;
             min-width: 190px;
-            background:rgba(0,0,0,0.77);
+            background: rgba(0,0,0,0.77);
             border-radius: 0 0 14px 14px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.18);
             padding: 10px 0;
@@ -100,7 +115,7 @@
             align-items: flex-start;
         }
         .intro-panel {
-            background:none;
+            background: none;
             padding: 32px 30px;
             border-radius: 12px;
             max-width: 540px;
@@ -120,8 +135,6 @@
             line-height: 1.6;
             text-shadow: 0 2px 12px rgba(0,0,0,0.8);
         }
-
-        /* Latest news layout updated */
         .latest-news-section {
             margin-top: 50px;
             width: 100%;
@@ -154,40 +167,76 @@
             font-size: 0.98rem;
         }
         .news-image-wrap {
-    margin-top: 10px;
-    width: 100%;
-    height: 210px;  /* Keep a fixed height */
-    border-radius: 8px;
-    overflow: hidden;
-    background: rgba(0,0,0,0.4);
-}
-.news-image-wrap img {
-    width: 100%;
-    height: 100%;  /* Fill the container */
-    object-fit: contain;  /* Full image visible */
-    display: block;
-}
-
+            margin-top: 10px;
+            width: 100%;
+            height: 210px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.4);
+        }
+        .news-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
         .news-snippet {
             margin-top: 8px;
             font-size: 0.85rem;
             color: #dde4ff;
         }
         .news-headline {
-         font-size: 1rem;
-         font-weight: 700;
-         color: #74f5ff;
-         margin: 0 0 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #74f5ff;
+            margin: 0 0 8px;
         }
 
-
-
-        @media (max-width:1100px) {
+        /* Mobile responsiveness */
+        @media (max-width: 1100px) {
             .latest-news-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
-        @media (max-width:700px) {
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            .nav-menu {
+                position: fixed;
+                top: 64px;
+                left: 0;
+                width: 100vw;
+                height: calc(100vh - 64px);
+                background: rgba(10,15,26,0.95);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 0;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+                z-index: 9;
+            }
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+            .nav-item {
+                width: 90%;
+                text-align: center;
+            }
+            .nav-link {
+                display: block;
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+            .dropdown {
+                position: static;
+                width: 100%;
+                background: rgba(0,0,0,0.77);
+                box-shadow: none;
+                border-radius: 0;
+            }
             .latest-news-grid {
                 grid-template-columns: 1fr;
             }
@@ -196,11 +245,19 @@
                 margin-right: 10px;
                 margin-top: 70px;
             }
-            .intro-panel { padding: 21px 12px; max-width: 98vw;}
-            .hero-title { font-size: 1.35rem; }
+            .intro-panel { 
+                padding: 21px 12px; 
+                max-width: 98vw;
+            }
+            .hero-title { 
+                font-size: 1.35rem; 
+            }
         }
-        @media (max-width:450px) {
-            .main-content { margin-left:3vw; margin-right:3vw; }
+        @media (max-width: 450px) {
+            .main-content { 
+                margin-left: 3vw; 
+                margin-right: 3vw; 
+            }
         }
     </style>
 </head>
@@ -212,7 +269,12 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <span class="logo">F1 Guide</span>
-        <div class="nav-menu">
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-menu" id="navMenu">
             <div class="nav-item">
                 <a href="#" class="nav-link">About F1</a>
                 <div class="dropdown">
@@ -286,55 +348,62 @@
         <div class="intro-panel">
             <div class="hero-title">The Ultimate Guide To Formula 1</div>
             <div class="hero-desc">
-                Welcome to the world of Formula 1 racing! Whether you’re new to the sport or just curious about what makes F1 so exciting, this site will guide you through the basics and highlights of the fastest racing on the planet. Explore the teams, drivers, and technology that make each race a thrilling event. Get ready to dive into the speed, skill, and strategy that define Formula 1 – there’s much more to discover as you explore each page.
+                Welcome to the world of Formula 1 racing! Whether you're new to the sport or just curious about what makes F1 so exciting, this site will guide you through the basics and highlights of the fastest racing on the planet. Explore the teams, drivers, and technology that make each race a thrilling event. Get ready to dive into the speed, skill, and strategy that define Formula 1 – there's much more to discover as you explore each page.
             </div>
         </div>
 
-        <!-- Latest News Section (updated) -->
+        <!-- Latest News Section -->
         <section class="latest-news-section">
-    <span class="news-label">Latest News</span>
-    <div class="latest-news-grid">
-        <article class="news-card">
-            <h3 class="news-headline">Lando Norris secures Drivers’ World Championship</h3>
-            <div class="news-image-wrap">
-                <img src="https://media.formula1.com/image/upload/t_16by9North/c_lfill,w_3392/q_auto/v1740000000/trackside-images/2025/F1_Grand_Prix_of_Brazil/2245877437.webp" alt="Lando Norris celebrates championship win">
-            </div>
-            <p class="news-snippet">
-                McLaren’s Lando Norris clinches his first Formula 1 world title after a stunning season finale display.
-            </p>
-        </article>
+            <span class="news-label">Latest News</span>
+            <div class="latest-news-grid">
+                <article class="news-card">
+                    <h3 class="news-headline">Lando Norris secures Drivers' World Championship</h3>
+                    <div class="news-image-wrap">
+                        <img src="https://media.formula1.com/image/upload/t_16by9North/c_lfill,w_3392/q_auto/v1740000000/trackside-images/2025/F1_Grand_Prix_of_Brazil/2245877437.webp" alt="Lando Norris celebrates championship win">
+                    </div>
+                    <p class="news-snippet">
+                        McLaren's Lando Norris clinches his first Formula 1 world title after a stunning season finale display.
+                    </p>
+                </article>
 
-        <article class="news-card">
-            <h3 class="news-headline">Isack Hadjar to replace Tsunoda for 2026 season</h3>
-            <div class="news-image-wrap">
-                <img src="News-card2.png" alt="Isack Hadjar joins F1 grid">
-            </div>
-            <p class="news-snippet">
-                Red Bull confirms young talent Isack Hadjar will step up to replace Yuki Tsunoda for the 2026 campaign.
-            </p>
-        </article>
+                <article class="news-card">
+                    <h3 class="news-headline">Isack Hadjar to replace Tsunoda for 2026 season</h3>
+                    <div class="news-image-wrap">
+                        <img src="News-card2.png" alt="Isack Hadjar joins F1 grid">
+                    </div>
+                    <p class="news-snippet">
+                        Red Bull confirms young talent Isack Hadjar will step up to replace Yuki Tsunoda for the 2026 campaign.
+                    </p>
+                </article>
 
-        <article class="news-card">
-            <h3 class="news-headline">Max Verstappen wins Abu Dhabi Grand Prix</h3>
-            <div class="news-image-wrap">
-                <img src="https://media.formula1.com/image/upload/t_16by9North/c_lfill,w_3392/q_auto/v1740000000/trackside-images/2025/F1_Grand_Prix_of_Abu_Dhabi/2250531013.webp" alt="Max Verstappen wins Abu Dhabi GP">
-            </div>
-            <p class="news-snippet">
-                Verstappen ends the 2025 season on a high with a dominant victory at Yas Marina under the lights.
-            </p>
-        </article>
+                <article class="news-card">
+                    <h3 class="news-headline">Max Verstappen wins Abu Dhabi Grand Prix</h3>
+                    <div class="news-image-wrap">
+                        <img src="https://media.formula1.com/image/upload/t_16by9North/c_lfill,w_3392/q_auto/v1740000000/trackside-images/2025/F1_Grand_Prix_of_Abu_Dhabi/2250531013.webp" alt="Max Verstappen wins Abu Dhabi GP">
+                    </div>
+                    <p class="news-snippet">
+                        Verstappen ends the 2025 season on a high with a dominant victory at Yas Marina under the lights.
+                    </p>
+                </article>
 
-        <article class="news-card">
-            <h3 class="news-headline">Lando Norris to use car number 1 in 2026</h3>
-            <div class="news-image-wrap">
-                <img src="https://media.formula1.com/image/upload/c_lfill,w_2048/q_auto/v1740000000/fom-website/2025/Abu%20Dhabi/Copy%20of%20Formula%201%20header%20templates.webp" alt="Lando Norris car number 1 for 2026">
+                <article class="news-card">
+                    <h3 class="news-headline">Lando Norris to use car number 1 in 2026</h3>
+                    <div class="news-image-wrap">
+                        <img src="https://media.formula1.com/image/upload/c_lfill,w_2048/q_auto/v1740000000/fom-website/2025/Abu%20Dhabi/Copy%20of%20Formula%201%20header%20templates.webp" alt="Lando Norris car number 1 for 2026">
+                    </div>
+                    <p class="news-snippet">
+                        Following his maiden title, Norris confirms he'll carry the prestigious number 1 plate for the 2026 season.
+                    </p>
+                </article>
             </div>
-            <p class="news-snippet">
-                Following his maiden title, Norris confirms he’ll carry the prestigious number 1 plate for the 2026 season.
-            </p>
-        </article>
-    </div>
-</section>
+        </section>
     </main>
+
+    <script>
+    function toggleMenu() {
+        document.getElementById('navMenu').classList.toggle('active');
+    }
+    </script>
 </body>
 </html>
+
