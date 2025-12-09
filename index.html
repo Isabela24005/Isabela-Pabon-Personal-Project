@@ -35,18 +35,19 @@
             display: flex;
             align-items: center;
             background: none;
-            padding: 0 20px;
+            padding: 0 15px;
             height: 64px;
             position: relative;
             z-index: 10;
             justify-content: space-between;
         }
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 900;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             color: #fff;
             flex-shrink: 0;
+            white-space: nowrap;
         }
         .hamburger {
             display: none;
@@ -65,30 +66,33 @@
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 15px;
+            flex-wrap: wrap;
         }
         .nav-item {
             position: relative;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
         }
         .nav-link {
             color: #fff;
             text-decoration: none;
-            padding: 10px 12px;
+            padding: 8px 10px;
             border-radius: 6px;
             transition: background 0.22s;
+            white-space: nowrap;
         }
         .nav-link:hover { background: #1a2039; }
         .dropdown {
             display: none;
             position: absolute;
             left: 0; top: 100%;
-            min-width: 190px;
+            min-width: 180px;
             background: rgba(0,0,0,0.77);
             border-radius: 0 0 14px 14px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.18);
             padding: 10px 0;
+            z-index: 11;
         }
         .nav-item:hover .dropdown,
         .nav-item:focus-within .dropdown {
@@ -99,7 +103,7 @@
             color: #fff;
             padding: 9px 19px;
             text-decoration: none;
-            font-size: 0.97em;
+            font-size: 0.95em;
             transition: background 0.15s;
         }
         .dropdown-link:hover {
@@ -192,12 +196,28 @@
             margin: 0 0 8px;
         }
 
-        /* Mobile responsiveness */
-        @media (max-width: 1100px) {
-            .latest-news-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+        /* Tablet/Small Laptop (1024px and below) */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 12px;
+            }
+            .nav-item {
+                font-size: 0.9rem;
+            }
+            .nav-link {
+                padding: 6px 8px;
+                font-size: 0.9rem;
+            }
+            .logo {
+                font-size: 1.3rem;
+                letter-spacing: 1px;
+            }
+            .navbar {
+                padding: 0 12px;
             }
         }
+
+        /* Mobile/Tablet (768px and below) */
         @media (max-width: 768px) {
             .hamburger {
                 display: flex;
@@ -406,4 +426,5 @@
     </script>
 </body>
 </html>
+
 
