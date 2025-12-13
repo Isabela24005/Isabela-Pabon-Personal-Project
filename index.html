@@ -31,86 +31,73 @@
             background: linear-gradient(120deg, rgba(10,15,26,0.85) 20%, rgba(16,21,40,0.57) 75%, rgba(0,0,0,0.94) 100%);
             z-index: -1;
         }
+
+        /* COMPACT Navbar */
         .navbar {
             display: flex;
             align-items: center;
             background: none;
             padding: 0 15px;
-            height: 70px; /* Taller navbar for easier touch */
-            position: relative;
+            height: 52px;
+            position: sticky;
+            top: 0;
             z-index: 1000;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 900;
             letter-spacing: 1.5px;
             color: #fff;
             flex-shrink: 0;
-            white-space: nowrap;
-            padding: 10px; /* Bigger touch area */
         }
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: 12px; /* Bigger padding */
-            margin: 5px;
-            width: 50px; /* Wider hit area */
-            height: 50px; /* Taller hit area */
-            justify-content: center;
-            align-items: center;
-            z-index: 1001;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.1); /* Subtle background for visibility */
-            backdrop-filter: blur(10px);
-            transition: background 0.2s;
-        }
-        .hamburger:hover,
-        .hamburger:active {
-            background: rgba(255,255,255,0.25);
+            padding: 4px;
         }
         .hamburger span {
-            width: 28px; /* Bigger lines */
-            height: 4px; /* Thicker lines */
+            width: 22px;
+            height: 2.5px;
             background: #fff;
-            margin: 3px 0;
+            margin: 2.5px 0;
             transition: 0.3s;
             border-radius: 2px;
         }
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
+            gap: 18px;
         }
         .nav-item {
             position: relative;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 600;
         }
         .nav-link {
             color: #fff;
             text-decoration: none;
-            padding: 12px 16px; /* Bigger padding */
-            border-radius: 8px; /* Bigger radius */
+            padding: 8px 10px;
+            border-radius: 6px;
             transition: background 0.22s;
-            white-space: nowrap;
-            min-height: 44px; /* Minimum touch target size */
-            display: flex;
-            align-items: center;
         }
-        .nav-link:hover, .nav-link:active { background: #1a2039; }
+        .nav-link:hover { background: #1a2039; }
+
+        /* SHRANKEN DROPDOWNS */
         .dropdown {
             display: none;
             position: absolute;
-            left: 0; top: 100%;
-            min-width: 200px; /* Wider dropdown */
+            left: 0;
+            top: 100%;
+            min-width: 150px;     /* smaller (was 180px) */
+            max-height: 60vh;
+            overflow-y: auto;
             background: rgba(0,0,0,0.77);
-            border-radius: 0 0 14px 14px;
+            border-radius: 0 0 10px 10px; /* smaller radius */
             box-shadow: 0 8px 16px rgba(0,0,0,0.18);
-            padding: 10px 0;
-            z-index: 11;
+            padding: 4px 0;       /* much tighter (was 8px) */
         }
         .nav-item:hover .dropdown,
         .nav-item:focus-within .dropdown {
@@ -119,21 +106,35 @@
         .dropdown-link {
             display: block;
             color: #fff;
-            padding: 14px 20px; /* Much bigger padding */
+            padding: 5px 12px;    /* smaller (was 7px 16px) */
             text-decoration: none;
-            font-size: 1em;
+            font-size: 0.88em;    /* smaller font (was 0.92em) */
             transition: background 0.15s;
-            min-height: 48px; /* Bigger touch targets */
-            display: flex;
-            align-items: center;
         }
-        .dropdown-link:hover, .dropdown-link:active {
+        .dropdown-link:hover {
             background: #27316a;
             color: #ff0101;
         }
+
+        /* Right-align the last (Media) dropdown */
+        .nav-item:last-child .dropdown {
+            left: auto;
+            right: 0;
+        }
+
+        /* On short screens, make Media dropdown open UP */
+        @media (max-height: 750px) {
+            .nav-item:last-child .dropdown {
+                top: auto;
+                bottom: 100%;
+                border-radius: 10px 10px 0 0;
+            }
+        }
+
+        /* Main layout */
         .main-content {
             margin-left: 60px;
-            margin-top: 100px;
+            margin-top: 75px;
             margin-right: 60px;
             display: flex;
             flex-direction: column;
@@ -160,6 +161,8 @@
             line-height: 1.6;
             text-shadow: 0 2px 12px rgba(0,0,0,0.8);
         }
+
+        /* Latest news */
         .latest-news-section {
             margin-top: 50px;
             width: 100%;
@@ -190,11 +193,6 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 0.98rem;
-            padding: 8px;
-            display: block;
-            min-height: 44px;
-            display: flex;
-            align-items: center;
         }
         .news-image-wrap {
             margin-top: 10px;
@@ -222,107 +220,76 @@
             margin: 0 0 8px;
         }
 
-        /* Tablet/Small Laptop (1024px and below) */
-        @media (max-width: 1024px) {
-            .nav-menu {
-                gap: 12px;
-            }
-            .nav-item {
-                font-size: 0.9rem;
-            }
-            .nav-link {
-                padding: 10px 12px;
-            }
-            .logo {
-                font-size: 1.3rem;
-                letter-spacing: 1px;
-            }
-            .navbar {
-                padding: 0 12px;
+        /* Grid responsiveness */
+        @media (max-width: 1100px) {
+            .latest-news-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
-        /* Mobile/Tablet (768px and below) */
-        @media (max-width: 768px) {
+        /* Mobile */
+        @media (max-width: 900px) {
             .hamburger {
-                display: flex !important;
+                display: flex;
             }
-            
             .nav-menu {
-                position: fixed !important;
-                top: 70px !important; /* Adjusted for taller navbar */
-                left: 0 !important;
-                width: 100vw !important;
-                height: calc(100vh - 70px) !important;
-                background: rgba(10,15,26,0.98) !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-                align-items: center !important;
-                gap: 0 !important;
-                padding: 30px 0 !important; /* More padding */
-                transform: translateY(-100%) !important;
-                transition: transform 0.3s ease !important;
-                z-index: 999 !important;
-                overflow-y: auto;
+                position: fixed;
+                top: 52px;
+                left: 0;
+                width: 100vw;
+                height: calc(100vh - 52px);
+                background: rgba(10,15,26,0.95);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 0;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1001;
             }
-            
             .nav-menu.active {
-                transform: translateY(0) !important;
+                transform: translateY(0);
             }
-            
             .nav-item {
-                width: 95% !important;
-                text-align: center !important;
+                width: 90%;
+                text-align: center;
             }
-            
             .nav-link {
-                display: block !important;
-                padding: 20px 15px !important; /* HUGE touch areas */
-                font-size: 1.2rem !important;
-                min-height: 56px !important;
+                display: block;
+                padding: 15px;
+                font-size: 1.1rem;
             }
-            
             .dropdown {
-                position: static !important;
-                width: 100% !important;
-                background: rgba(0,0,0,0.85) !important;
-                box-shadow: none !important;
-                border-radius: 0 !important;
-                display: none !important;
+                position: static;
+                width: 100%;
+                max-height: none;
+                overflow-y: visible;
+                background: rgba(0,0,0,0.77);
+                box-shadow: none;
+                border-radius: 0;
             }
-            
-            .nav-item:hover .dropdown,
-            .nav-item:focus-within .dropdown,
-            .nav-item:active .dropdown {
-                display: block !important;
-            }
-            
-            .dropdown-link {
-                padding: 18px 25px !important; /* Extra big */
-                min-height: 56px !important;
-                font-size: 1.1rem !important;
-            }
-            
             .latest-news-grid {
                 grid-template-columns: 1fr;
             }
             .main-content {
                 margin-left: 10px;
                 margin-right: 10px;
-                margin-top: 80px; /* Adjusted */
+                margin-top: 60px;
             }
-            .intro-panel { 
-                padding: 24px 16px; /* Bigger touch area */
+            .intro-panel {
+                padding: 21px 12px;
                 max-width: 98vw;
             }
-            .hero-title { 
-                font-size: 1.45rem; 
+            .hero-title {
+                font-size: 1.35rem;
             }
         }
+
         @media (max-width: 450px) {
-            .main-content { 
-                margin-left: 3vw; 
-                margin-right: 3vw; 
+            .main-content {
+                margin-left: 3vw;
+                margin-right: 3vw;
             }
         }
     </style>
@@ -335,7 +302,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <span class="logo">F1 Guide</span>
-        <div class="hamburger" onclick="toggleMenu()" ontouchstart="toggleMenu()">
+        <div class="hamburger" onclick="toggleMenu()">
             <span></span>
             <span></span>
             <span></span>
@@ -467,20 +434,9 @@
 
     <script>
     function toggleMenu() {
-        const menu = document.getElementById('navMenu');
-        menu.classList.toggle('active');
+        document.getElementById('navMenu').classList.toggle('active');
     }
-    
-    // Close menu when clicking a link or outside
-    document.addEventListener('click', function(event) {
-        const menu = document.getElementById('navMenu');
-        const hamburger = document.querySelector('.hamburger');
-        if (!hamburger.contains(event.target) && !menu.contains(event.target)) {
-            menu.classList.remove('active');
-        }
-    });
     </script>
 </body>
 </html>
-
 
