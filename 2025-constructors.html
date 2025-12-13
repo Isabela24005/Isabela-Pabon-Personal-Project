@@ -15,67 +15,81 @@
             line-height: 1.7;
         }
 
-        /* NAVBAR (match homepage structure) */
+        /* NAVBAR - MATCHES INDEX.HTML COMPACT SIZE */
         .navbar {
             display: flex;
             align-items: center;
             background: #1a2039;
-            padding: 0 40px;
-            height: 64px;
+            padding: 0 15px;      /* matches index */
+            height: 52px;         /* matches index (was 64px) */
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.3rem;    /* matches index (was 1.4rem) */
             font-weight: 900;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px; /* matches index */
             color: #ffffff;
-            margin-right: 38px;
+            flex-shrink: 0;       /* matches index */
             text-decoration: none;
         }
         .nav-menu {
             display: flex;
             align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            gap: 18px;            /* matches index (was 20px) */
         }
         .nav-item {
             position: relative;
-            font-size: 0.98rem;
+            font-size: 0.92rem;   /* matches index (was 0.98rem) */
             font-weight: 600;
         }
         .nav-link {
             color: #ffffff;
             text-decoration: none;
-            padding: 8px 10px;
+            padding: 8px 10px;    /* matches index */
             border-radius: 4px;
             transition: background 0.2s;
         }
         .nav-link:hover { background: rgba(0,0,0,0.18); }
+
+        /* Dropdown matches index compact size */
         .dropdown {
             display: none;
             position: absolute;
             left: 0;
             top: 100%;
-            min-width: 200px;
+            min-width: 150px;     /* matches index */
+            max-height: 60vh;
+            overflow-y: auto;
             background: #ffffff;
             border-radius: 0 0 10px 10px;
             box-shadow: 0 8px 18px rgba(0,0,0,0.18);
-            padding: 8px 0;
+            padding: 4px 0;       /* matches index */
         }
         .nav-item:hover .dropdown { display: block; }
         .dropdown-link {
             display: block;
-            padding: 8px 16px;
-            font-size: 0.92rem;
+            padding: 5px 12px;    /* matches index */
+            font-size: 0.88em;    /* matches index */
             color: #222222;
             text-decoration: none;
         }
         .dropdown-link:hover { background: #f2f2f2; color: #e21b3c; }
 
+        /* Right-align Media dropdown like index */
+        .nav-item:last-child .dropdown {
+            left: auto;
+            right: 0;
+            top: 100% !important;
+            bottom: auto !important;
+            border-radius: 0 0 10px 10px !important;
+        }
+
         @media (max-width: 900px) {
-            .navbar { flex-wrap: wrap; padding: 0 12px; height: auto; }
+            .navbar { padding: 0 12px; height: auto; }
             .nav-menu { gap: 10px; }
         }
 
@@ -118,7 +132,7 @@
         .team-aston     { border-top: 4px solid #037a68; }
         .team-sauber    { border-top: 4px solid #7dd3ae; }
         .team-haas      { border-top: 4px solid #eb0a1e; }
-        .team-alpine    { border-top: 4px solid #f282b4; }  /* pinkish for Alpine [web:1461][web:1464] */
+        .team-alpine    { border-top: 4px solid #f282b4; }
 
         .team-header {
             display: flex;
@@ -216,10 +230,9 @@
 </head>
 <body>
 
-    <!-- NAVBAR (reuse homepage structure/links) -->
-        <nav class="navbar">
+    <!-- NAVBAR -->
+    <nav class="navbar">
         <a href="index.html" class="logo">F1 Guide</a>
-
         <div class="nav-menu">
             <div class="nav-item">
                 <a href="#" class="nav-link">About F1</a>
@@ -271,7 +284,7 @@
                 <a href="#" class="nav-link">How F1 Works</a>
                 <div class="dropdown">
                     <a href="#" class="dropdown-link">Race Formats and Scoring</a>
-                    <a href="#" class="dropdown-link">Qualifying &amp; Sprint Races</a>
+                    <a href="#" class="dropdown-link">Qualifying & Sprint Races</a>
                     <a href="#" class="dropdown-link">Race Flags and Signals</a>
                 </div>
             </div>
@@ -344,7 +357,7 @@
                 <p class="driver-line">Drivers:</p>
                 <p class="driver-names">Max Verstappen (#1), Yuki Tsunoda (#22)</p>
                 <p class="overview">
-                    Despite a slight drop in points this season, Red Bull remains a serious contender with Verstappen’s aggressive driving complemented by Tsunoda’s growth in the second seat.
+                    Despite a slight drop in points this season, Red Bull remains a serious contender with Verstappen's aggressive driving complemented by Tsunoda's growth in the second seat.
                 </p>
                 <div class="image-wrap">
                     <img src="https://d3cm515ijfiu6w.cloudfront.net/wp-content/uploads/2025/04/04105956/max-verstappen-yuki-tsunoda-red-bull-japan-2025-planetf1.jpg" alt="Red Bull staying in the fight with Verstappen and Tsunoda" onclick="openImageModal(this)">
@@ -361,10 +374,10 @@
                 <p class="driver-line">Drivers:</p>
                 <p class="driver-names">Charles Leclerc (#16), Lewis Hamilton (#44)</p>
                 <p class="overview">
-                    Ferrari’s star-studded lineup brings renewed hope to the team. Leclerc's speed paired with Hamilton’s championship experience aims to return Ferrari to title contention.
+                    Ferrari's star-studded lineup brings renewed hope to the team. Leclerc's speed paired with Hamilton's championship experience aims to return Ferrari to title contention.
                 </p>
                 <div class="image-wrap">
-                    <img src="https://media.formula1.com/image/upload/t_16by9North/c_lfill,w_3392/q_auto/v1740000000/fom-website/2025/Ferrari/GettyImages-2202027969.webp" alt="Ferrari’s title-challenging 2025 lineup." onclick="openImageModal(this)">
+                    <img src="https://media.formula1.com/image/upload/t_16by9North/c_lfill,w_3392/q_auto/v1740000000/fom-website/2025/Ferrari/GettyImages-2202027969.webp" alt="Ferrari's title-challenging 2025 lineup." onclick="openImageModal(this)">
                     <div class="image-caption">Ferrari's title-challenging 2025 lineup.</div>
                 </div>
             </article>
@@ -398,8 +411,8 @@
                     A young, energetic team filled with rookie talent, Racing Bulls strive to establish themselves as a strong feeder team for Red Bull Racing.
                 </p>
                 <div class="image-wrap">
-                    <img src="Racingbull-constructor.png" alt="Isack Hadjar and Liam Lawson answering questions from fans." onclick="openImageModal(this)">
-                    <div class="image-caption">Isack Hadjar and Liam Lawson ansering questions from fans.</div>
+                    <img src="Racingbull-constructor.png" alt="Isack Hadjar and Liam
+                                <div class="image-caption">Isack Hadjar and Liam Lawson answering questions from fans.</div>
                 </div>
             </article>
 
@@ -412,7 +425,7 @@
                 <p class="driver-line">Drivers:</p>
                 <p class="driver-names">Fernando Alonso (#14), Lance Stroll (#18)</p>
                 <p class="overview">
-                    This veteran duo combines experience and consistency in a bid to strengthen Aston Martin’s position in the midfield pack.
+                    This veteran duo combines experience and consistency in a bid to strengthen Aston Martin's position in the midfield pack.
                 </p>
                 <div class="image-wrap">
                     <img src="https://images.ps-aws.com/c?url=https%3A%2F%2Fd3cm515ijfiu6w.cloudfront.net%2Fwp-content%2Fuploads%2F2023%2F03%2F05200423%2Faston-martin-fernando-alonso-lance-stroll-planet-f1.jpg" alt="Fernando Alonso and Lance Stroll at the Bahrain Grand Prix" onclick="openImageModal(this)">
@@ -429,11 +442,11 @@
                 <p class="driver-line">Drivers:</p>
                 <p class="driver-names">Nico Hülkenberg (#27), Gabriel Bortoleto (#5)</p>
                 <p class="overview">
-                    Sauber prepares for its Audi partnership by blending Hulkenberg’s experience with Bortoleto’s promising rookie season.
+                    Sauber prepares for its Audi partnership by blending Hülkenberg's experience with Bortoleto's promising rookie season.
                 </p>
                 <div class="image-wrap">
-                    <img src="https://cdn-5.motorsport.com/images/amp/6xEwzL40/s6/nico-hulkenberg-sauber-gabriel.jpg" alt="Gabriel Bortoleto congratulating Nico Hulkenburg on his first podium. (Britsh Grand Prix)" onclick="openImageModal(this)">
-                    <div class="image-caption">Gabriel Bortoleto congratulating Nico Hulkenburg on his first podium (Britsh Grand Prix)</div>
+                    <img src="https://cdn-5.motorsport.com/images/amp/6xEwzL40/s6/nico-hulkenberg-sauber-gabriel.jpg" alt="Gabriel Bortoleto congratulating Nico Hülkenberg on his first podium. (British Grand Prix)" onclick="openImageModal(this)">
+                    <div class="image-caption">Gabriel Bortoleto congratulating Nico Hülkenberg on his first podium (British Grand Prix)</div>
                 </div>
             </article>
 
@@ -446,7 +459,7 @@
                 <p class="driver-line">Drivers:</p>
                 <p class="driver-names">Esteban Ocon (#31), Oliver Bearman (#87)</p>
                 <p class="overview">
-                    Haas refreshes its lineup with Ocon’s experience and Bearman’s rookie enthusiasm, targeting a stronger campaign.
+                    Haas refreshes its lineup with Ocon's experience and Bearman's rookie enthusiasm, targeting a stronger campaign.
                 </p>
                 <div class="image-wrap">
                     <img src="https://staticg.sportskeeda.com/editor/2025/08/c2f25-17558767872231-1920.jpg" alt="Esteban Ocon and Oliver Bearman at F1 Grand Prix of Great Britain - Qualifying" onclick="openImageModal(this)">
@@ -463,7 +476,7 @@
                 <p class="driver-line">Drivers:</p>
                 <p class="driver-names">Pierre Gasly (#10), Franco Colapinto (#43)</p>
                 <p class="overview">
-                    Alpine is developing young talent with Gasly’s experience and Colapinto's rookie season. Jack Doohan participates as a test/reserve driver and may make a few race appearances.
+                    Alpine is developing young talent with Gasly's experience and Colapinto's rookie season. Jack Doohan participates as a test/reserve driver and may make a few race appearances.
                 </p>
                 <div class="image-wrap">
                     <img src="https://img.republicworld.com/all_images/alpine-driver-pierre-gasly-of-france-and-franco-colapinto-of-argentina-1762529437526-16_9.webp" alt="Alpine driver Pierre Gasly and Franco Colapinto greet spectators during drivers parade before the Mexico Grand Prix" onclick="openImageModal(this)">
@@ -505,3 +518,4 @@
     </script>
 </body>
 </html>
+
