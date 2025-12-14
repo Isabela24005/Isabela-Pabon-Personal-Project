@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formula 1 Glossary of Terms</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: #ffffff;
+            color: #111111;
+        }
+
+        /* ===== NAVBAR - SAME AS WHAT-IS-F1 PAGE ===== */
+        .navbar {
+            display: flex;
+            align-items: center;
+            background: #1a2039;
+            padding: 0 15px;
+            height: 52px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 35px;
+        }
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            color: #fff;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: auto;
+        }
+        .hamburger span {
+            width: 22px;
+            height: 2.5px;
+            background: #fff;
+            margin: 2.5px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .nav-item {
+            position: relative;
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 6px;
+            transition: background 0.22s;
+        }
+        .nav-link:hover { 
+            background: #1a2039; 
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            min-width: 150px;
+            max-height: 60vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.18);
+            padding: 4px 0;
+        }
+        .nav-item:hover .dropdown,
+        .nav-item:focus-within .dropdown {
+            display: block;
+        }
+        .dropdown-link {
+            display: block;
+            color: #000000;
+            padding: 5px 12px;
+            text-decoration: none;
+            font-size: 0.88em;
+            transition: background 0.15s;
+        }
+        .dropdown-link:hover {
+            background: #f2f2f2;
+            color: #e21b3c;
+        }
+        .nav-item:last-child .dropdown {
+            left: auto;
+            right: 0;
+            top: 100% !important;
+            border-radius: 0 0 10px 10px !important;
+        }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            .hamburger { display: flex; }
+            .nav-menu {
+                position: fixed;
+                top: 52px;
+                left: 0;
+                width: 100vw;
+                height: calc(100vh - 52px);
+                background: rgba(10,15,26,0.95);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 0;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1001;
+            }
+            .nav-menu.active { transform: translateY(0); }
+            .nav-item { width: 90%; text-align: center; }
+            .nav-link { display: block; padding: 15px; font-size: 1.1rem; }
+            .dropdown {
+                position: static;
+                width: 100%;
+                max-height: none;
+                background: #ffffff;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .dropdown-link {
+                color: #000000;
+            }
+            .navbar {
+                padding: 0 12px;
+            }
+        }
+
+        /* ===== PAGE CONTENT (unchanged) ===== */
+        .top-wrapper {
+            text-align: center;
+            padding: 40px 20px 10px;
+        }
+        .top-main-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin: 0 0 8px;
+        }
+        .top-subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #777;
+            margin-bottom: 30px;
+        }
+        .section-main-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 0 35px;
+        }
+
+        .page-layout {
+            display: flex;
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            padding: 0 20px 40px;
+        }
+
+        .letter-nav {
+            width: 140px;
+            padding-right: 20px;
+            border-right: 1px solid #e0e0e0;
+        }
+        .letter-nav-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #777;
+            margin-bottom: 16px;
+        }
+        .letter-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: none;
+            background: none;
+            padding: 6px 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: #444;
+            transition: color 0.15s;
+        }
+        .letter-btn:hover,
+        .letter-btn.active {
+            color: #000;
+        }
+
+        .glossary-content {
+            flex: 1;
+            padding-left: 35px;
+        }
+        .letter-heading {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 40px 0 15px;
+        }
+        .term-line {
+            margin-bottom: 14px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .term-name {
+            font-weight: 700;
+        }
+        .dash {
+            font-weight: 400;
+            margin: 0 4px;
+        }
+
+        @media (max-width: 800px) {
+            .navbar { padding: 0 16px; flex-wrap: wrap; }
+            .page-layout {
+                flex-direction: column;
+            }
+            .letter-nav {
+                display: flex;
+                flex-wrap: wrap;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+                padding-bottom: 10px;
+                margin-bottom: 25px;
+            }
+            .letter-btn {
+                width: auto;
+                margin-right: 10px;
+            }
+            .glossary-content {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR - UPDATED TO MATCH WHAT-IS-F1 PAGE -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">F1 Guide</a>
+        <div class="nav-menu" id="navMenu">
+            <div class="nav-item">
+                <a href="#" class="nav-link">About F1</a>
+                <div class="dropdown">
+                    <a href="what-is-formula1.html" class="dropdown-link">What is Formula 1</a>
+                    <a href="History-of-F1.html" class="dropdown-link">History of F1</a>
+                    <a href="F1-glossary.html" class="dropdown-link">F1 Glossary</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Teams And Drivers</a>
+                <div class="dropdown">
+                    <a href="2025-constructors.html" class="dropdown-link">2025 Constructors Championship</a>
+                    <a href="Current-drivers.html" class="dropdown-link">Current Drivers</a>
+                    <a href="Driver-academies.html" class="dropdown-link">Driver Academies</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Cars and Technology</a>
+                <div class="dropdown">
+                    <a href="Car-designs-and-innovations.html" class="dropdown-link">Car Designs & Innovations</a>
+                    <a href="Power-units-and-aerodynamics.html" class="dropdown-link">Power Units & Aerodynamics</a>
+                    <a href="Technical-rules.html" class="dropdown-link">Technical Rules</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Tires</a>
+                <div class="dropdown">
+                    <a href="Tire-types-and-compounds.html" class="dropdown-link">Tire Types and Compounds</a>
+                    <a href="Tire-rules-and-allocations.html" class="dropdown-link">Tire Rules and Allocations</a>
+                    <a href="Tire-strategy.html" class="dropdown-link">Tire Strategy</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Race and Circuits</a>
+                <div class="dropdown">
+                    <a href="Race-calender.html" class="dropdown-link">Race Calendar</a>
+                    <a href="GP-circuits.html" class="dropdown-link">GP Circuits</a>
+                    <a href="Notable-races-and-moments.html" class="dropdown-link">Notable Races and Moments</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">How F1 Works</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-link">Race Formats and Scoring</a>
+                    <a href="#" class="dropdown-link">Qualifying & Sprint Races</a>
+                    <a href="#" class="dropdown-link">Race Flags and Signals</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Fan Zone</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-link">How to Watch and Attend</a>
+                    <a href="#" class="dropdown-link">Fan Clubs and Experiences</a>
+                    <a href="#" class="dropdown-link">Trivia and Fun Facts</a>
+                    <a href="scrapbook.html" class="dropdown-link">Scrapbook</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Media</a>
+                <div class="dropdown">
+                    <a href="photo-gallery.html" class="dropdown-link">Photo Gallery</a>
+                    <a href="video-highlights.html" class="dropdown-link">Video Highlights</a>
+                </div>
+            </div>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- ALL YOUR EXISTING CONTENT (unchanged) -->
+    <div class="top-wrapper">
+        <h1 class="top-main-title">Formula 1 Glossary</h1>
+    </div>
+
+    <div class="page-layout">
+        <aside class="letter-nav">
+            <div class="letter-nav-title">Jump to</div>
+            <button class="letter-btn active" onclick="scrollToLetter('A')">A–B</button>
+            <button class="letter-btn" onclick="scrollToLetter('C')">C–D</button>
+            <button class="letter-btn" onclick="scrollToLetter('E')">E–F</button>
+            <button class="letter-btn" onclick="scrollToLetter('G')">G–H</button>
+            <button class="letter-btn" onclick="scrollToLetter('J')">J–L</button>
+            <button class="letter-btn" onclick="scrollToLetter('M')">M–O</button>
+            <button class="letter-btn" onclick="scrollToLetter('P')">P–R</button>
+            <button class="letter-btn" onclick="scrollToLetter('S')">S–T</button>
+            <button class="letter-btn" onclick="scrollToLetter('U')">U–Z</button>
+        </aside>
+
+        <section class="glossary-content">
+            <!-- A -->
+            <h3 id="A" class="letter-heading">A</h3>
+            <p class="term-line">
+                <span class="term-name">Aerodynamics</span><span class="dash">–</span>
+                the study of how air moves around a car, crucial in F1 for generating downforce and reducing drag so the car is fast and stable.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Airbox</span><span class="dash">–</span>
+                the air intake above the driver’s head that feeds the engine and also forms part of the safety roll structure.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Apex</span><span class="dash">–</span>
+                the ideal “clip point” on the inside of a corner that drivers aim for to carry maximum speed through the turn.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Appeal</span><span class="dash">–</span>
+                a formal challenge submitted by a team if it believes a decision or penalty from the officials was unfair.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Autoclave</span><span class="dash">–</span>
+                a large high‑pressure oven used to cure carbon‑fibre parts, which make up most of an F1 car’s structure and bodywork.
+            </p>
+
+            <!-- B -->
+            <h3 class="letter-heading">B</h3>
+                                <p class="term-line">
+                <span class="term-name">Backmarker</span><span class="dash">–</span>
+                a driver running near the back of the field, who must respect blue flags and allow faster, lapping cars to pass safely.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Ballast</span><span class="dash">–</span>
+                extra weight placed in specific areas of the car to optimise balance and make sure it meets the minimum weight limit.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Bargeboard</span><span class="dash">–</span>
+                a vertical panel between the front wheels and sidepods that helps guide airflow cleanly along the sides of the car.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Blistering</span><span class="dash">–</span>
+                damage to a tyre when it overheats and rubber bubbles up and tears away, causing vibration and loss of grip.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Bodywork</span><span class="dash">–</span>
+                the removable carbon‑fibre panels fitted to the chassis, such as the engine cover, nose, and cockpit surround.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Bottoming</span><span class="dash">–</span>
+                when the underside of the car hits the track because the suspension compresses fully over bumps or kerbs.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Brake balance</span><span class="dash">–</span>
+                the adjustable split of braking force between the front and rear wheels, controlled by the driver from the cockpit.
+            </p>
+
+            <!-- C -->
+            <h3 id="C" class="letter-heading">C</h3>
+            <p class="term-line">
+                <span class="term-name">CAD</span><span class="dash">–</span>
+                short for computer‑aided design, the software engineers use to model and design F1 parts and whole cars.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Camber</span><span class="dash">–</span>
+                the angle a tyre leans in or out from vertical, tuned to improve grip and steering response.
+            </p>
+            <p class="term-line">
+                <span class="term-name">CFD</span><span class="dash">–</span>
+                computational fluid dynamics; virtual wind‑tunnel simulations that predict how airflow will move around the car.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Chassis</span><span class="dash">–</span>
+                the main structural “tub” of the car that the engine, suspension and bodywork attach to, also called the monocoque.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Chicane</span><span class="dash">–</span>
+                a quick left‑right or right‑left sequence of corners added to slow cars before a faster section of track.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Clean air</span><span class="dash">–</span>
+                undisturbed airflow that gives a car maximum aerodynamic performance, usually enjoyed by the race leader.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Coanda effect</span><span class="dash">–</span>
+                the tendency of airflow to follow a curved surface, used in F1 to steer gases and air to specific parts of the car.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Cockpit</span><span class="dash">–</span>
+                the driver’s seating area within the chassis, surrounded by safety structures like the halo and headrest.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Compound</span><span class="dash">–</span>
+                the rubber mix used in a tyre; softer compounds give more grip but wear faster, while harder ones last longer.
+            </p>
+
+            <!-- D -->
+            <h3 class="letter-heading">D</h3>
+            <p class="term-line">
+                <span class="term-name">Debrief</span><span class="dash">–</span>
+                the meeting after a session where drivers and engineers review data, car balance and strategy.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Degradation</span><span class="dash">–</span>
+                the gradual loss of tyre performance and grip over a stint, not just the visible wear of rubber.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Delta time</span><span class="dash">–</span>
+                the time difference between two laps or two drivers, often shown on timing screens as a positive or negative value.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Diffuser</span><span class="dash">–</span>
+                the rear part of the floor where air exits from under the car; its shape helps create low pressure and extra downforce.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Dirty air / Clean air</span><span class="dash">–</span>
+                dirty air is the turbulent wake behind a car that reduces downforce for a following driver; clean air is smooth flow with full aero efficiency.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Downforce</span><span class="dash">–</span>
+                aerodynamic load that presses the car into the track, boosting grip in braking and cornering.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Drag</span><span class="dash">–</span>
+                air resistance that opposes the car’s motion and limits top speed.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Drive‑through penalty</span><span class="dash">–</span>
+                a race penalty where a driver must drive through the pit lane at the speed limit without stopping.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Drivers’ briefing</span><span class="dash">–</span>
+                a meeting between all drivers and race control to discuss procedures, safety and any specific issues for the weekend.
+            </p>
+            <p class="term-line">
+                <span class="term-name">DNF / DNS / DNQ / DSQ</span><span class="dash">–</span>
+                abbreviations meaning ‘Did Not Finish’, ‘Did Not Start’, ‘Did Not Qualify’ and ‘Disqualified’ on results sheets.
+            </p>
+            <p class="term-line">
+                <span class="term-name">DRS</span><span class="dash">–</span>
+                Drag Reduction System; an adjustable rear‑wing flap that opens in set zones to cut drag and help overtaking when close to another car.
+            </p>
+
+            <!-- E -->
+            <h3 id="E" class="letter-heading">E</h3>
+            <p class="term-line">
+                <span class="term-name">ECU</span><span class="dash">–</span>
+                the standard electronic control unit that manages the car’s engine, gearbox and many other systems.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Endplate</span><span class="dash">–</span>
+                the vertical outer panel on a wing that helps manage vortices and direct airflow.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Energy store</span><span class="dash">–</span>
+                the battery pack that holds recovered electrical energy for later use by the hybrid system.
+            </p>
+            <p class="term-line">
+                <span class="term-name">ERS</span><span class="dash">–</span>
+                Energy Recovery System; the hybrid system that collects waste energy from braking and the turbo and redeploys it for extra power.
+            </p>
+
+            <!-- F -->
+            <h3 class="letter-heading">F</h3>
+            <p class="term-line">
+                <span class="term name"><b>Flag</b>
+                A colored signal shown by marshals (or as lights) around the circuit to communicate important information to drivers about track conditions, dangers, and race status.
+                </p>
+                <b>Green flag</b>:The track is clear. Normal racing can continue and drivers are free to overtake.
+            </p>
+
+             <b>Yellow flag</b> – Danger ahead. Drivers must slow down, be ready to change direction, and are not allowed to overtake.
+        </p>
+             <b>Double yellow flag</b> – Serious incident. Drivers must slow down a lot and be prepared to stop because the track may be partly or fully blocked.
+    </p>
+             <b>Red flag</b>– Session or race stopped. Conditions are too dangerous to continue and all cars must return to the pit lane or line up as directed.
+</p>
+             <b>Blue flag</b> – A faster car is about to lap a driver. The slower car must let it pass safely at the next opportunity.
+</p>
+             <b>White flag</b> – There is a much slower vehicle ahead, like a recovery or medical car, so drivers should approach with extra care.
+</p>
+             <b>Yellow and Red striped flag</b> – Slippery surface ahead, often from oil, water or debris on the track, so grip may suddenly change.
+</p>
+             <b>Black flag</b> – A driver is disqualified and must return to the pits immediately.
+</p>
+             <b>Black and orange flag</b> – The car has a mechanical or damage problem that could be dangerous; the driver must pit for repairs.
+</p>
+             <b>Black and White flag</b> – Final warning for unsportsmanlike driving; if the behaviour continues, a penalty will follow.
+</p>
+            <b>Chequered flag</b> – The session or race is finished and the next time drivers cross the line their lap will not count toward the result.
+                </p>
+            <p class="term-line">
+                <span class="term-name">Flat spot</span><span class="dash">–</span>
+                a worn patch on a tyre caused by locking the brakes, which can lead to strong vibrations.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Formation lap</span><span class="dash">–</span>
+                the lap before the start when cars leave the grid, warm their tyres and then line up again in grid order.
+            </p>
+
+            <!-- G -->
+            <h3 id="G" class="letter-heading">G</h3>
+            <p class="term-line">
+                <span class="term-name">G‑force</span><span class="dash">–</span>
+                the effective force a driver feels under acceleration, braking and cornering, measured in multiples of gravity.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Graining</span><span class="dash">–</span>
+                when small rubber pellets build up on the tyre surface after sliding, temporarily reducing grip.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Gravel trap</span><span class="dash">–</span>
+                a bed of gravel beyond the track designed to slow and stop cars that run wide.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Grip</span><span class="dash">–</span>
+                the level of traction the tyres can generate with the track at a given moment.
+            </p>
+
+            <!-- H -->
+            <h3 class="letter-heading">H</h3>
+            <p class="term-line">
+                <span class="term-name">Handling</span><span class="dash">–</span>
+                how well a car responds to steering, braking and throttle inputs, especially through corners.
+            </p>
+            <p class="term-line">
+                <span class="term-name">HANS device</span><span class="dash">–</span>
+                a safety collar that attaches to the helmet to limit head and neck movement in a crash.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Headrest</span><span class="dash">–</span>
+                foam padding around the driver’s helmet that absorbs energy and supports the head in impacts.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Heat cycle</span><span class="dash">–</span>
+                the process of a tyre heating up on track and then cooling, which can change its characteristics.
+            </p>
+
+            <!-- J -->
+            <h3 id="J" class="letter-heading">J</h3>
+            <p class="term-line">
+                <span class="term-name">Installation lap</span><span class="dash">–</span>
+                a systems‑check lap done at low speed to confirm everything on the car is working before serious running.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Jump start</span><span class="dash">–</span>
+                when a driver moves before the start lights go out, usually detected electronically and penalised.
+            </p>
+
+            <!-- K–L -->
+            <h3 class="letter-heading">K–L</h3>
+            <p class="term-line">
+                <span class="term-name">Kevlar</span><span class="dash">–</span>
+                a strong synthetic fibre used with resin to form impact‑resistant parts in F1 construction.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Left‑foot braking</span><span class="dash">–</span>
+                a technique where the driver uses the left foot on the brake and keeps the right foot on the throttle.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Lock‑up</span><span class="dash">–</span>
+                when a wheel stops rotating under braking and slides, often producing smoke and flat spots.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Lollipop</span><span class="dash">–</span>
+                the pit‑stop sign once held in front of the car to control when the driver stopped and then left the box.
+            </p>
+
+            <!-- M–N -->
+            <h3 id="M" class="letter-heading">M–N</h3>
+            <p class="term-line">
+                <span class="term-name">Marbles</span><span class="dash">–</span>
+                small chunks of rubber that collect off the racing line and offer very little grip.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Marshal</span><span class="dash">–</span>
+                a trained trackside official who handles flags, incidents and safety duties.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Monocoque</span><span class="dash">–</span>
+                the one‑piece carbon‑fibre survival cell forming the core of the car around the driver.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Nomex</span><span class="dash">–</span>
+                fire‑resistant fabric used in race suits, underwear, gloves and boots for extra protection.
+            </p>
+
+            <!-- O–P–Q–R -->
+            <h3 id="P" class="letter-heading">O–P–R</h3>
+            <p class="term-line">
+                <span class="term-name">Option tyre / Prime tyre</span><span class="dash">–</span>
+                the two dry‑tyre compounds nominated for a race; ‘prime’ is typically harder, ‘option’ usually softer and faster.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Out‑brake</span><span class="dash">–</span>
+                braking later than a rival into a corner, either to overtake or sometimes by mistake and running wide.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Out‑performing the car</span><span class="dash">–</span>
+                when a driver’s results are better than what the car’s pace would normally allow.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Oversteer</span><span class="dash">–</span>
+                when the rear of the car slides more than the front, making the car want to rotate into the corner.
+                        <p class="term-line">
+                <span class="term-name">Oversteer</span><span class="dash">–</span>
+                when the rear of the car slides more than the front, making the car want to rotate into the corner.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Paddles</span><span class="dash">–</span>
+                small levers behind the steering wheel used by the driver to shift up and down through the gears.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Paddock</span><span class="dash">–</span>
+                the secure area behind the garages where teams park trucks, set up motorhomes and work away from the track.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Parc fermé</span><span class="dash">–</span>
+                a controlled area where cars are parked after qualifying and the race so officials can inspect them.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Pit board</span><span class="dash">–</span>
+                the sign hung over the pit wall giving the driver lap count, gaps and other key messages.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Pit wall</span><span class="dash">–</span>
+                the trackside area where team management and engineers monitor the race on timing screens and radios.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Pits</span><span class="dash">–</span>
+                the lane and garages where cars stop for tyres, checks and repairs during sessions.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Plank</span><span class="dash">–</span>
+                a wooden skid block under the car’s floor used to check ride height by measuring how much it has worn.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Pole position / Polesitter</span><span class="dash">–</span>
+                first place on the starting grid, held by the driver who set the fastest qualifying time.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Powertrain</span><span class="dash">–</span>
+                the full system that produces power: engine, hybrid units and energy store.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Practice</span><span class="dash">–</span>
+                the sessions before qualifying where teams work on setup, tyres and race pace.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Protest</span><span class="dash">–</span>
+                a formal complaint lodged by a team if it believes a rule has been broken.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Qualifying</span><span class="dash">–</span>
+                the time‑trial session that sets the starting grid order for the race.
+            </p>
+            <p class="term-line">
+                <span class="term-name">R&amp;D</span><span class="dash">–</span>
+                research and development work carried out to improve performance or reliability.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Reconnaissance lap</span><span class="dash">–</span>
+                a lap drivers do from the pits to the grid before the start to check conditions and systems.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Retirement</span><span class="dash">–</span>
+                when a car drops out of the race due to an accident or technical problem.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Ride height</span><span class="dash">–</span>
+                the distance between the underside of the car and the track surface.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Rumblestrip</span><span class="dash">–</span>
+                rough kerbing at the edge of the track that warns drivers they are close to leaving the circuit.
+            </p>
+
+            <!-- S–T -->
+            <h3 id="S" class="letter-heading">S–T</h3>
+            <p class="term-line">
+                <span class="term-name">Safety car</span><span class="dash">–</span>
+                the official car that leads the field at reduced speed during incidents or poor conditions.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Scrutineering</span><span class="dash">–</span>
+                the technical inspection of cars to ensure they comply with the regulations.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Sectors</span><span class="dash">–</span>
+                the three timed parts into which a lap is divided on the timing screens.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Shakedown</span><span class="dash">–</span>
+                a short initial test run used to confirm that a new car or new parts work correctly.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Sidepod</span><span class="dash">–</span>
+                the bodywork on either side of the car that houses radiators and directs airflow to the rear.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Slipstreaming</span><span class="dash">–</span>
+                using the reduced drag in the wake of another car to gain speed on a straight.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Steward</span><span class="dash">–</span>
+                one of the officials who review incidents and decide on penalties.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Stop‑go penalty</span><span class="dash">–</span>
+                a penalty where a driver must stop in the pit box for a set time without any work on the car.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Tear‑off strips</span><span class="dash">–</span>
+                thin plastic layers on a visor that drivers pull away when they get dirty.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Telemetry</span><span class="dash">–</span>
+                data sent in real time from the car to the pits so engineers can monitor its behaviour.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Torque</span><span class="dash">–</span>
+                the twisting force produced by the engine that helps accelerate the car.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Traction</span><span class="dash">–</span>
+                how well the tyres can transfer power into forward motion without wheelspin.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Traction control</span><span class="dash">–</span>
+                an electronic aid that limits wheelspin under acceleration, which is banned in modern F1.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Tub</span><span class="dash">–</span>
+                another term for the monocoque or central chassis.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Turbulence</span><span class="dash">–</span>
+                disturbed, swirling airflow that can reduce aerodynamic efficiency for cars behind.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Turbocharger</span><span class="dash">–</span>
+                a turbine driven by exhaust gases that compresses intake air so the engine can make more power.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Tyre compound</span><span class="dash">–</span>
+                the specific rubber blend used in a tyre, affecting grip and durability.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Tyre warmer</span><span class="dash">–</span>
+                an electric blanket that heats tyres before they go on the car to bring them near working temperature.
+            </p>
+
+            <!-- U–Z -->
+            <h3 id="U" class="letter-heading">U–Z</h3>
+            <p class="term-line">
+                <span class="term-name">Understeer</span><span class="dash">–</span>
+                when the front tyres slide wide and the car turns less than the driver intends.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Undertray</span><span class="dash">–</span>
+                the floor panel under the car that is key to aerodynamic downforce.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Undercut</span><span class="dash">–</span>
+                an overtaking strategy where a driver pits earlier for fresh tyres to gain time and emerge ahead once the rival stops.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Visor strip</span><span class="dash">–</span>
+                the reinforced strip at the top of a driver’s helmet visor that adds extra protection.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Wheelbase</span><span class="dash">–</span>
+                the distance between the front and rear axle centres, which affects stability and agility.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Yaw</span><span class="dash">–</span>
+                the car’s rotation around its vertical axis, describing how much its nose points left or right.
+            </p>
+            <p class="term-line">
+                <span class="term-name">Zylon</span><span class="dash">–</span>
+                a very strong synthetic material used in helmets and side‑impact structures to resist penetration.
+            </p>
+        </section>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        function scrollToLetter(id) {
+            const target = document.getElementById(id);
+            if (!target) return;
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            document.querySelectorAll('.letter-btn').forEach(btn => btn.classList.remove('active'));
+            if (window.event && window.event.currentTarget) {
+                window.event.currentTarget.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Technical Rules</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #ffffff;
+      color: #111111;
+      line-height: 1.7;
+    }
+
+    /* ===== NAVBAR - EXACT MATCH FROM WHAT-IS-F1 PAGE ===== */
+    .navbar {
+      display: flex;
+      align-items: center;
+      background: #1a2039;      
+      padding: 0 15px;
+      height: 52px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 35px;
+    }
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      color: #fff;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 4px;
+      margin-left: auto;
+    }
+    .hamburger span {
+      width: 22px;
+      height: 2.5px;
+      background: #fff;
+      margin: 2.5px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-item {
+      position: relative;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+    .nav-link {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 6px;
+      transition: background 0.22s;
+    }
+    .nav-link:hover { 
+      background: #1a2039; 
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      min-width: 150px;
+      max-height: 60vh;
+      overflow-y: auto;
+      background: #ffffff;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.18);
+      padding: 4px 0;
+    }
+    .nav-item:hover .dropdown,
+    .nav-item:focus-within .dropdown {
+      display: block;
+    }
+    .dropdown-link {
+      display: block;
+      color: #000000;
+      padding: 5px 12px;
+      text-decoration: none;
+      font-size: 0.88em;
+      transition: background 0.15s;
+    }
+    .dropdown-link:hover {
+      background: #f2f2f2;
+      color: #e21b3c;
+    }
+    .nav-item:last-child .dropdown {
+      left: auto;
+      right: 0;
+      top: 100% !important;
+      border-radius: 0 0 10px 10px !important;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-menu {
+        position: fixed;
+        top: 52px;
+        left: 0;
+        width: 100vw;
+        height: calc(100vh - 52px);
+        background: rgba(10,15,26,0.95);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        padding: 20px 0;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1001;
+      }
+      .nav-menu.active { transform: translateY(0); }
+      .nav-item { width: 90%; text-align: center; }
+      .nav-link { display: block; padding: 15px; font-size: 1.1rem; }
+      .dropdown {
+        position: static;
+        width: 100%;
+        max-height: none;
+        background: #ffffff;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .dropdown-link { color: #000000; }
+      .navbar { padding: 0 12px; }
+    }
+
+    /* ===== ALL YOUR EXISTING PAGE STYLES (UNCHANGED) ===== */
+    .wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px 60px;
+    }
+
+    .page-title,
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      position: relative;
+      display: inline-block;
+    }
+    .page-title::after,
+    .section-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 80px;
+      height: 3px;
+      background: #ff3b3f;
+      border-radius: 999px;
+    }
+
+    .intro-text {
+      margin-top: 22px;
+      margin-bottom: 24px;
+      font-size: 0.98rem;
+      max-width: 900px;
+    }
+
+    .fia-link {
+      display: inline-block;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+    }
+    .fia-link a {
+      color: #e21b3c;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .fia-link a:hover {
+      text-decoration: underline;
+    }
+
+    .rules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .rule-card {
+      background: #f6f6fb;
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rule-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a2039;
+      margin-bottom: 4px;
+    }
+
+    .rule-card p {
+      font-size: 0.93rem;
+      color: #222222;
+    }
+
+    .rule-image {
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .rule-image img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+    .rule-image:hover img {
+      transform: scale(1.03);
+      filter: brightness(0.9);
+    }
+    .rule-caption {
+      font-size: 0.8rem;
+      color: #555555;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    .image-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 9999;
+    }
+    .modal-image {
+      max-width: 90%;
+      max-height: 80%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 10px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+    }
+    .modal-caption {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #f5f5f5;
+      font-size: 0.95rem;
+      text-align: center;
+      max-width: 650px;
+      padding: 0 10px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 28px;
+      font-size: 32px;
+      color: #ffffff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR - NOW MATCHES WHAT-IS-F1 PAGE PERFECTLY -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">F1 Guide</a>
+    <div class="nav-menu" id="navMenu">
+      <div class="nav-item">
+        <a href="#" class="nav-link">About F1</a>
+        <div class="dropdown">
+          <a href="what-is-formula1.html" class="dropdown-link">What is Formula 1</a>
+          <a href="History-of-F1.html" class="dropdown-link">History of F1</a>
+          <a href="F1-glossary.html" class="dropdown-link">F1 Glossary</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Teams And Drivers</a>
+        <div class="dropdown">
+          <a href="2025-constructors.html" class="dropdown-link">2025 Constructors Championship</a>
+          <a href="Current-drivers.html" class="dropdown-link">Current Drivers</a>
+          <a href="Driver-academies.html" class="dropdown-link">Driver Academies</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Cars and Technology</a>
+        <div class="dropdown">
+          <a href="Car-designs-and-innovations.html" class="dropdown-link">Car Designs & Innovations</a>
+          <a href="Power-units-and-aerodynamics.html" class="dropdown-link">Power Units & Aerodynamics</a>
+          <a href="Technical-rules.html" class="dropdown-link">Technical Rules</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Tires</a>
+        <div class="dropdown">
+          <a href="Tire-types-and-compounds.html" class="dropdown-link">Tire Types and Compounds</a>
+          <a href="Tire-rules-and-allocations.html" class="dropdown-link">Tire Rules and Allocations</a>
+          <a href="Tire-strategy.html" class="dropdown-link">Tire Strategy</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Race and Circuits</a>
+        <div class="dropdown">
+          <a href="Race-calender.html" class="dropdown-link">Race Calendar</a>
+          <a href="GP-circuits.html" class="dropdown-link">GP Circuits</a>
+          <a href="Notable-races-and-moments.html" class="dropdown-link">Notable Races and Moments</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">How F1 Works</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link">Race Formats and Scoring</a>
+          <a href="#" class="dropdown-link">Qualifying & Sprint Races</a>
+          <a href="#" class="dropdown-link">Race Flags and Signals</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Fan Zone</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link">How to Watch and Attend</a>
+          <a href="#" class="dropdown-link">Fan Clubs and Experiences</a>
+          <a href="#" class="dropdown-link">Trivia and Fun Facts</a>
+          <a href="scrapbook.html" class="dropdown-link">Scrapbook</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Media</a>
+        <div class="dropdown">
+          <a href="photo-gallery.html" class="dropdown-link">Photo Gallery</a>
+          <a href="video-highlights.html" class="dropdown-link">Video Highlights</a>
+        </div>
+      </div>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- ALL YOUR EXISTING CONTENT (UNCHANGED) -->
+  <main class="wrapper">
+    <h1 class="page-title">Technical Rules</h1>
+
+    <p class="intro-text">
+      Formula&nbsp;1 cars must follow strict technical rules set by the FIA. These rules control how cars
+      are built, how powerful they are, and what materials and designs are allowed. The goal is to keep
+      drivers safe, keep racing fair, and still let teams be creative and build very fast cars.
+    </p>
+
+    <!-- CARD GRID -->
+    <section class="rules-grid">
+      <!-- Car size and weight -->
+      <article class="rule-card">
+        <h3>Car Size and Weight</h3>
+        <p>
+          Each car has to fit inside limits for length, width, and height. The car and driver together must
+          also meet a minimum weight. This stops teams from building cars that are too huge or dangerously
+          light just to gain speed.
+        </p>
+        <div class="rule-image" onclick="openModal(this)">
+          <img src="https://motorsport.tech/wp-content/uploads/2019/02/F1-2019-Fairness-weight.jpg.jpg" alt="Diagram showing F1 car size and weight limits">
+        </div>
+        <p class="rule-caption">
+          The FIA sets strict limits on car dimensions and minimum weight.
+        </p>
+      </article>
+
+      <!-- Engines and power -->
+      <article class="rule-card">
+        <h3>Engines and Power</h3>
+        <p>
+          Modern F1 cars use turbo hybrid power units. Rules limit how much fuel the car can use, how fast
+          the fuel can flow, and how much electrical energy can be deployed each lap. This keeps power under
+          control and pushes teams to make efficient engines.
+        </p>
+        <div class="rule-image" onclick="openModal(this)">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Mercedes_AMG_Powertrain_%2852849595779%29.jpg" alt="Hybrid F1 power unit with turbo and energy recovery">
+        </div>
+        <p class="rule-caption">
+          Hybrid power units must follow fuel flow and energy deployment limits.
+        </p>
+      </article>
+
+      <!-- Aerodynamics -->
+      <article class="rule-card">
+        <h3>Aerodynamics</h3>
+        <p>
+          Front and rear wings, the floor, and the bodywork all have to follow detailed size and shape
+          rules. Moving devices such as DRS are only allowed in certain places and under specific race
+          conditions so that cars can still follow each other closely.
+        </p>
+        <div class="rule-image" onclick="openModal(this)">
+          <img src="https://d3cm515ijfiu6w.cloudfront.net/wp-content/uploads/2022/10/22101446/mercedes-five-stabiliser-wing-planetf1.jpg" alt="F1 car bodywork with legal wing and floor shapes">
+        </div>
+        <p class="rule-caption">
+          Aerodynamic rules limit wing shapes and moving parts like DRS.
+        </p>
+      </article>
+
+      <!-- Chassis and safety -->
+      <article class="rule-card">
+        <h3>Chassis and Safety Materials</h3>
+        <p>
+          The chassis must be made from approved materials such as carbon fiber and built as a strong
+          survival cell around the driver. Crash structures, side‑impact protection, and the Halo device all
+          have to pass FIA crash tests before a car is allowed to race.
+        </p>
+        <div class="rule-image" onclick="openModal(this)">
+          <img src="https://www.racecar-engineering.com/wp-content/uploads/2022/07/Ferrari-SF-23-Halo.jpg" alt="Carbon-fiber survival cell and Halo safety structure">
+        </div>
+        <p class="rule-caption">
+          Safety rules require a survival cell, crash structures, and the Halo.
+        </p>
+      </article>
+
+      <!-- Tires and suspension -->
+      <article class="rule-card">
+        <h3>Tires and Suspension</h3>
+        <p>
+          All teams must use tires from the official supplier and stay within set sizes. Suspension systems
+          cannot use special moving tricks that copy active suspension or change the ride height in secret,
+          which keeps handling advantages under control.
+        </p>
+        <div class="rule-image" onclick="openModal(this)">
+          <img src="https://cdn-1.motorsport.com/static/img/archive/autosport/news/149806_1008768/s8/1008768.jpg" alt="F1 car wheel, tire and suspension close-up">
+        </div>
+        <p class="rule-caption">
+          Tire sizes and suspension designs are tightly controlled by the rules.
+        </p>
+      </article>
+
+      <!-- Speed and performance limits -->
+      <article class="rule-card">
+        <h3>Speed and Performance Limits</h3>
+        <p>
+          There are speed limits in the pit lane to protect mechanics and officials. Limits on fuel flow and
+          aerodynamic performance also prevent cars from becoming too fast for the tracks and safety
+          barriers, balancing performance with safety.
+        </p>
+        <div class="rule-image" onclick="openModal(this)">
+          <img src="https://static01.nyt.com/images/2025/04/12/multimedia/12sp-bahrain-pitstops-inyt-02-bmht/12sp-bahrain-pitstops-inyt-02-bmht-articleLarge.jpg?quality=75&auto=webp&disable=upscale" alt="F1 car obeying pit-lane speed limit">
+        </div>
+        <p class="rule-caption">
+          Pit-lane speeds and power limits help keep overall performance safe.
+        </p>
+      </article>
+
+      <!-- Why rules matter -->
+      <article class="rule-card">
+        <h3>Why These Rules Matter</h3>
+        <p>
+          Technical rules protect the drivers, ensure fans can enjoy close racing, and stop one team from
+          winning just by spending the most money. They also force engineers to solve problems in clever
+          ways instead of breaking safety limits.
+        </p>
+        <div class="rule-image" onclick="openModal(this)">
+          <img src="https://external-preview.redd.it/VOSqvPZArx2EqBIl5C3rGI_lcle6FkdhwDqAqSUjUAI.jpg?width=960&crop=smart&auto=webp&s=6941ef561fa1d9487cf3cb4bcfc8ef664ad4a41f" alt="F1 car in parc fermé being checked for rules">
+        </div>
+        <p class="rule-caption">
+          Every car is checked after qualifying and races to make sure it follows the rules.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <!-- IMAGE MODAL -->
+  <div class="image-modal" id="imageModal" onclick="closeModal(event)">
+    <span class="modal-close" onclick="closeModal(event)">&times;</span>
+    <img class="modal-image" id="modalImg" alt="">
+    <div class="modal-caption" id="modalCaption"></div>
+  </div>
+
+  <script>
+    // NAVBAR TOGGLE FUNCTION
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('active');
+    }
+
+    // YOUR EXISTING MODAL FUNCTIONS (UNCHANGED)
+    function openModal(card) {
+      const img = card.querySelector('img');
+      const captionText = card.nextElementSibling
+        ? card.nextElementSibling.textContent.trim()
+        : img.alt;
+
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      const modalCaption = document.getElementById('modalCaption');
+
+      modal.style.display = 'block';
+      modalImg.src = img.src;
+      modalImg.alt = img.alt;
+      modalCaption.textContent = captionText;
+    }
+
+    function closeModal(event) {
+      event.stopPropagation();
+      const modal = document.getElementById('imageModal');
+      modal.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

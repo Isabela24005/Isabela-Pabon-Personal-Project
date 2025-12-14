@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Liam Lawson | F1 Scrapbook Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<!-- SAME Racing Bulls ORANGE STYLE AS HADJAR - Copy above style block -->
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(135deg, #ffe5d9 0%, #ffd1c2 100%);
+  color: #222;
+  line-height: 1.7;
+}
+/* NAVBAR */
+.navbar { display: flex; align-items: center; background: #1a2039; padding: 0 40px; height: 64px; position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; color: #ffffff; margin-right: 38px; text-decoration: none; }
+.nav-menu { display: flex; align-items: center; gap: 20px; }
+.nav-link { color: #fff; text-decoration: none; font-weight: 600; padding: 6px 10px; border-radius: 6px; transition: background 0.2s; }
+.nav-link:hover { background: rgba(0,0,0,0.2); }
+/* LAYOUT */
+.wrapper { max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px; display: flex; flex-wrap: wrap; gap: 40px; }
+/* Racing Bulls Orange Theme */
+.photo-pane { flex: 1 1 450px; position: relative; border: 3px solid #f97316; border-radius: 12px; overflow: hidden; box-shadow: 8px 8px 0 #fdba74; background: #fff5f5; }
+.photo-pane::before, .photo-pane::after { content: ""; position: absolute; width: 80px; height: 25px; background: rgba(255,255,255,0.8); border: 1px solid #fed7aa; transform: rotate(-6deg); top: 14px; left: 30%; }
+.photo-pane::after { top: auto; bottom: 16px; right: 25%; transform: rotate(8deg); }
+.photo-pane img { width: 100%; height: 100%; object-fit: cover; }
+.info-pane { flex: 1 1 650px; display: flex; flex-direction: column; gap: 25px; }
+.name-header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.name-header img.flag { width: 36px; height: 24px; border-radius: 3px; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+h1 { font-size: 2.5rem; font-weight: 800; }
+.subtitle { font-size: 1.1rem; color: #444; margin-bottom: 12px; }
+.details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px 25px; background: #fff5e6; border: 2px dashed #fdba74; border-radius: 10px; padding: 18px 22px; box-shadow: 3px 3px 0 #fed7aa; }
+.details-grid div p { margin-bottom: 2px; }
+.details-grid strong { display: block; color: #c2410c; }
+.note { background: #fff5e6; padding: 14px 18px; border: 2px solid #fed7aa; border-radius: 10px; width: fit-content; box-shadow: 4px 4px 0 #fdba74; position: relative; }
+.note::before { content: ""; position: absolute; width: 18px; height: 18px; background: #f97316; border-radius: 50%; top: -9px; left: 20px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+.note h3 { margin-bottom: 6px; font-size: 1.05rem; color: #c2410c; }
+.photo-collage { display: flex; flex-wrap: wrap; gap: 16px; }
+.photo-thumb { position: relative; background: #fff; padding: 6px; border: 2px solid #fed7aa; border-radius: 8px; box-shadow: 3px 3px 0 #fdba74; cursor: pointer; transition: transform 0.2s; }
+.photo-thumb:hover { transform: rotate(-2deg) scale(1.03); }
+.photo-thumb img { width: 180px; height: 120px; object-fit: cover; border-radius: 5px; }
+.photo-thumb p { text-align: center; font-size: 0.85rem; margin-top: 5px; color: #c2410c; }
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000; }
+.lightbox.active { display: flex; }
+.lightbox-content { background: #fff5e6; padding: 20px; border-radius: 10px; text-align: center; border: 2px solid #fed7aa; }
+.lightbox-content img { max-width: 90vw; max-height: 80vh; border-radius: 8px; }
+.lightbox-content p { margin-top: 10px; color: #c2410c; }
+.close-btn { position: absolute; top: 20px; right: 28px; font-size: 2rem; color: #fff; cursor: pointer; }
+@media (max-width: 850px) { .wrapper { flex-direction: column; } .photo-pane { height: 400px; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="logo">F1 Guide</a>
+  <div class="nav-menu">
+    <a href="Current-drivers.html" class="nav-link">← Back to Drivers</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+  <div class="photo-pane">
+    <img src="Liam.avif" alt="Liam Lawson">
+  </div>
+  <div class="info-pane">
+    <div class="name-header">
+      <h1>Liam Lawson</h1>
+      <img src="https://flagcdn.com/w40/nz.png" alt="New Zealand Flag" class="flag">
+    </div>
+    <p class="subtitle">Racing Bulls · New Zealander · #30</p>
+
+    <div class="details-grid">
+      <div><strong>Born</strong><p>11/02/2002, Hastings, New Zealand</p></div>
+      <div><strong>Nationality</strong><p>New Zealander</p></div>
+      <div><strong>Racing number</strong><p>30</p></div>
+      <div><strong>F1 debut</strong><p>2023 Dutch Grand Prix</p></div>
+      <div><strong>Height</strong><p>183 cm (6 ft 0 in)</p></div>
+      <div><strong>World Championships</strong><p>0</p></div>
+      <div><strong>Wins</strong><p>0</p></div>
+      <div><strong>Pole positions</strong><p>0</p></div>
+      <div><strong>Podiums</strong><p>0</p></div>
+      <div><strong>Fastest laps</strong><p>0</p></div>
+      <div><strong>Favourite circuit</strong><p>Spa-Francorchamps, Belgium</p></div>
+      <div><strong>DNF's</strong><p>6</p></div>
+    </div>
+
+    <div class="note">
+      <h3>Career Notes</h3>
+      <p>Red Bull Junior. 2023 substitute (P13 Zandvoort debut). Full-time Racing Bulls 2025 with Hadjar.</p>
+    </div>
+
+    <div class="note">
+      <h3>2025 Season</h3>
+      <p>14th in championship (38 points). Best: 8th x3. Solid rookie alongside podium hero Hadjar.</p>
+    </div>
+
+    <div class="photo-collage">
+      <div class="photo-thumb" data-image="https://cdn-9.motorsport.com/images/mgl/01W3QerY/s1000/liam-lawson-team-mugen-1.jpg" data-caption="F1 debut P13 at Zandvoort 2023.">
+        <img src="https://cdn-9.motorsport.com/images/mgl/01W3QerY/s1000/liam-lawson-team-mugen-1.jpg" alt="Debut">
+        <p>F1 Debut</p>
+      </div>
+      <div class="photo-thumb" data-image="Racingbulls.png" data-caption="Liam Lawson at Racing Bulls.">
+        <img src="Racingbulls.png" alt="Racing Bulls">
+        <p>Racing Bulls 2025</p>
+      </div>
+      <div class="photo-thumb" data-image="https://cdn.racingnews365.com/2025/Lawson/_1092x683_crop_center-center_85_none/XPB_1362759_HiRes.jpg?v=1753552039" data-caption="Racing in Spa in Racing Bulls colors.">
+        <img src="https://cdn.racingnews365.com/2025/Lawson/_1092x683_crop_center-center_85_none/XPB_1362759_HiRes.jpg?v=1753552039" alt="Spa">
+        <p>Spa Charge</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <span class="close-btn" id="closeBtn">&times;</span>
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="">
+    <p id="lightboxCaption"></p>
+  </div>
+</div>
+
+<script>
+const thumbs = document.querySelectorAll('.photo-thumb');
+const lightbox = document.getElementById('lightbox');
+const img = document.getElementById('lightboxImg');
+const caption = document.getElementById('lightboxCaption');
+const closeBtn = document.getElementById('closeBtn');
+thumbs.forEach(t => { t.addEventListener('click', () => { img.src = t.dataset.image; caption.textContent = t.dataset.caption; lightbox.classList.add('active'); }); });
+closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+</script>
+</body>
+</html>

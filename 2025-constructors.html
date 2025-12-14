@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2025 Constructors Championship</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: "Montserrat", Arial, sans-serif;
+            background: #ffffff;
+            color: #161714;
+            line-height: 1.7;
+        }
+
+        /* ===== NAVBAR - EXACT MATCH TO WHAT-IS-F1 PAGE ===== */
+        .navbar {
+            display: flex;
+            align-items: center;
+            background: #1a2039;
+            padding: 0 15px;
+            height: 52px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 35px;
+        }
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            color: #fff;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 4px;
+            margin-left: auto;
+        }
+        .hamburger span {
+            width: 22px;
+            height: 2.5px;
+            background: #fff;
+            margin: 2.5px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .nav-item {
+            position: relative;
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 6px;
+            transition: background 0.22s;
+        }
+        .nav-link:hover { 
+            background: #1a2039; 
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            min-width: 150px;
+            max-height: 60vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.18);
+            padding: 4px 0;
+        }
+        .nav-item:hover .dropdown,
+        .nav-item:focus-within .dropdown {
+            display: block;
+        }
+        .dropdown-link {
+            display: block;
+            color: #000000;
+            padding: 5px 12px;
+            text-decoration: none;
+            font-size: 0.88em;
+            transition: background 0.15s;
+        }
+        .dropdown-link:hover {
+            background: #f2f2f2;
+            color: #e21b3c;
+        }
+        .nav-item:last-child .dropdown {
+            left: auto;
+            right: 0;
+            top: 100% !important;
+            border-radius: 0 0 10px 10px !important;
+        }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+            .hamburger { display: flex; }
+            .nav-menu {
+                position: fixed;
+                top: 52px;
+                left: 0;
+                width: 100vw;
+                height: calc(100vh - 52px);
+                background: rgba(10,15,26,0.95);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 0;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1001;
+            }
+            .nav-menu.active { transform: translateY(0); }
+            .nav-item { width: 90%; text-align: center; }
+            .nav-link { display: block; padding: 15px; font-size: 1.1rem; }
+            .dropdown {
+                position: static;
+                width: 100%;
+                max-height: none;
+                background: #ffffff;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            .dropdown-link { color: #000000; }
+            .navbar { padding: 0 12px; }
+        }
+
+        /* ===== ALL YOUR EXISTING PAGE STYLES (UNCHANGED) ===== */
+        .wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 32px 16px 60px;
+        }
+        h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #111111;
+            margin-bottom: 26px;
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 10px;
+        }
+
+        .team-card {
+            border-radius: 16px;
+            padding: 18px 18px 22px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            background: #f7f7f9;
+        }
+
+        .team-mclaren   { border-top: 4px solid #ff8c00; }
+        .team-mercedes  { border-top: 4px solid #00d7b6; }
+        .team-ferrari   { border-top: 4px solid #ed1131; }
+        .team-redbull   { border-top: 4px solid #3671c6; }
+        .team-williams  { border-top: 4px solid #64c4ff; }
+        .team-racingbulls { border-top: 4px solid #6692ff; }
+        .team-aston     { border-top: 4px solid #037a68; }
+        .team-sauber    { border-top: 4px solid #7dd3ae; }
+        .team-haas      { border-top: 4px solid #eb0a1e; }
+        .team-alpine    { border-top: 4px solid #f282b4; }
+
+        .team-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+        }
+        .team-header h2 {
+            font-size: 1.3rem;
+            color: #111111;
+        }
+
+        .constructors-badge {
+            display: inline-block;
+            background: #a40000;
+            color: #ffffff;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .driver-line {
+            margin-top: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .driver-names {
+            font-size: 0.95rem;
+            margin-top: 2px;
+        }
+
+        .overview {
+            font-size: 0.95rem;
+            margin-top: 10px;
+        }
+
+        .image-wrap {
+            margin-top: 14px;
+        }
+        .image-wrap img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        }
+        .image-caption {
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        @media (max-width: 700px) {
+            .image-wrap img { height: 180px; }
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            padding-top: 60px;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80vh;
+            border-radius: 10px;
+        }
+        #modalCaption {
+            margin: 15px auto;
+            text-align: center;
+            color: #f1f1f1;
+            font-size: 1rem;
+            max-width: 80%;
+        }
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .modal-close:hover { color: #bbb; }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR - EXACT COPY FROM WHAT-IS-F1 PAGE -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">F1 Guide</a>
+        <div class="nav-menu" id="navMenu">
+            <div class="nav-item">
+                <a href="#" class="nav-link">About F1</a>
+                <div class="dropdown">
+                    <a href="what-is-formula1.html" class="dropdown-link">What is Formula 1</a>
+                    <a href="History-of-F1.html" class="dropdown-link">History of F1</a>
+                    <a href="F1-glossary.html" class="dropdown-link">F1 Glossary</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Teams And Drivers</a>
+                <div class="dropdown">
+                    <a href="2025-constructors.html" class="dropdown-link">2025 Constructors Championship</a>
+                    <a href="Current-drivers.html" class="dropdown-link">Current Drivers</a>
+                    <a href="Notable-past-drivers.html" class="dropdown-link">Notable Past Drivers</a>
+                    <a href="Driver-academies.html" class="dropdown-link">Driver Academies</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Cars and Technology</a>
+                <div class="dropdown">
+                    <a href="Car-design-and-innovations.html" class="dropdown-link">Car Design and Innovations</a>
+                    <a href="Power-units-and-aerodynamics.html" class="dropdown-link">Power Units & Aerodynamics</a>
+                    <a href="Technical-rules.html" class="dropdown-link">Technical Rules</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Tires</a>
+                <div class="dropdown">
+                    <a href="Tire-types-and-compounds.html" class="dropdown-link">Tire Types and Compounds</a>
+                    <a href="Tire-rules-and-allocations.html" class="dropdown-link">Tire Rules and Allocations</a>
+                    <a href="Tire-strategy.html" class="dropdown-link">Tire Strategy</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Race and Circuits</a>
+                <div class="dropdown">
+                    <a href="Race-calender.html" class="dropdown-link">Race Calendar</a>
+                    <a href="GP-circuits.html" class="dropdown-link">GP Circuits</a>
+                    <a href="Notable-races-and-moments.html" class="dropdown-link">Notable Races and Moments</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">How F1 Works</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-link">Race Formats and Scoring</a>
+                    <a href="#" class="dropdown-link">Qualifying & Sprint Races</a>
+                    <a href="#" class="dropdown-link">Race Flags and Signals</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Fan Zone</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-link">How to Watch and Attend</a>
+                    <a href="#" class="dropdown-link">Fan Clubs and Experiences</a>
+                    <a href="#" class="dropdown-link">Trivia and Fun Facts</a>
+                    <a href="#" class="dropdown-link">Scrapbook</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">Media</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-link">Photo Gallery</a>
+                    <a href="#" class="dropdown-link">Video Highlights</a>
+                </div>
+            </div>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- YOUR EXISTING CONTENT (UNCHANGED) -->
+    <div class="wrapper">
+        <h1>2025 Constructors Championship</h1>
+
+        <div class="teams-grid">
+            <!-- All your team cards stay exactly the same -->
+            <!-- McLaren -->
+            <article class="team-card team-mclaren">
+                <div class="team-header">
+                    <h2>McLaren</h2>
+                    <span class="constructors-badge">833 pts</span>
+                </div>
+                <p class="driver-line">Drivers:</p>
+                <p class="driver-names">Lando Norris (#4), Oscar Piastri (#81)</p>
+                <p class="overview">
+                    McLaren leads the 2025 Constructors' Championship, powered by the strong and consistent performances of Norris and Piastri. After winning the previous season, the team continues to innovate and push for more victories.
+                </p>
+                <div class="image-wrap">
+                    <img src="https://e0.365dm.com/24/07/2048x1152/skysports-lando-norris-oscar_663577" alt="Lando Norris and Oscar Piastri on the podium at the Hungarian Grand Prix" onclick="openImageModal(this)">
+                    <div class="image-caption">Lando Norris and Oscar Piastri on the podium at the Hungarian Grand Prix.</div>
+                </div>
+            </article>
+
+            <!-- Mercedes -->
+            <article class="team-card team-mercedes">
+                <div class="team-header">
+                    <h2>Mercedes</h2>
+                    <span class="constructors-badge">469 pts</span>
+                </div>
+                <p class="driver-line">Drivers:</p>
+                <p class="driver-names">George Russell (#63), Kimi Antonelli (#7)</p>
+                <p class="overview">
+                    Mercedes rounds out the top teams with an exciting mix of experience and youth. Russell takes the lead role, while rookie Antonelli looks to develop and challenge in his debut season.
+                </p>
+                <div class="image-wrap">
+                    <img src="https://cdn-8.motorsport.com/images/amp/68yGG340/s1000/andrea-kimi-antonelli-mercedes.jpg" alt="Mercedes 2025 car in garage." onclick="openImageModal(this)">
+                    <div class="image-caption">Mercedes 2025 car in garage.</div>
+                </div>
+            </article>
+
+            <!-- Red Bull -->
+            <article class="team-card team-redbull">
+                <div class="team-header">
+                    <h2>Red Bull Racing</h2>
+                    <span class="constructors-badge">451 pts</span>
+                </div>
+                <p class="driver-line">Drivers:</p>
+                <p class="driver-names">Max Verstappen (#1), Yuki Tsunoda (#22)</p>
+                <p class="overview">
+                    Despite a slight drop in points this season, Red Bull remains a serious contender with Verstappen's aggressive driving complemented by Tsunoda's growth in the second seat.
+                </p>
+                <div class="image-wrap">
+                    <img src="https://d3cm515ijfiu6w.cloudfront.net/wp-content/uploads/2025/04/04105956/max-verstappen-yuki-tsunoda-red-bull-japan-2025-planetf1.jpg" alt="Red Bull staying in the fight with Verstappen and Tsunoda" onclick="openImageModal(this)">
+                    <div class="image-caption">Red Bull staying in the fight with Verstappen and Tsunoda.</div>
+                </div>
+            </article>
+
+            <!-- Ferrari -->
+            <article class="team-card team-ferrari">
+                <div class="team-header">
+                    <h2>Ferrari</h2>
+                    <span class="constructors-badge">398 pts</span>
+                </div>
+                <p class="driver-line">Drivers:</p>
+                <p class="driver-names">Charles Leclerc (#16), Lewis Hamilton (#44)</p>
+                <p class="overview">
+                    Ferrari's star-studded lineup brings renewed hope to the team. Leclerc's speed paired with Hamilton's championship experience aims to return Ferrari to title contention.
+                </p>
+                <div class="image-wrap">
+                    <img src="https://media.formula1.com/image/upload/t_16by9North/c_lfill,w_3392/q_auto/v1740000000/fom-website/2025/Ferrari/GettyImages-2202027969.webp" alt="Ferrari's title-challenging 2025 lineup." onclick="openImageModal(this)">
+                    <div class="image-caption">Ferrari's title-challenging 2025 lineup.</div>
+                </div>
+            </article>
+
+            <!-- Williams -->
+            <article class="team-card team-williams">
+                <div class="team-header">
+                    <h2>Williams</h2>
+                    <span class="constructors-badge">137 pts</span>
+                </div>
+                <p class="driver-line">Drivers:</p>
+                <p class="driver-names">Carlos Sainz (#55), Alexander Albon (#23)</p>
+                <p class="overview">
+                    Williams continues its comeback with the addition of Sainz alongside Albon. The team is fighting hard to climb the midfield standings.
+                </p>
+                <div class="image-wrap">
+                    <img src="Williams-constructors.png" alt="Alex Albon and Carlos Sainz in team gear." onclick="openImageModal(this)">
+                    <div class="image-caption">Alex Albon and Carlos Sainz in team gear.</div>
+                </div>
+            </article>
+
+            <!-- Racing Bulls -->
+            <article class="team-card team-racingbulls">
+                <div class="team-header">
+                    <h2>Racing Bulls (RB)</h2>
+                    <span class="constructors-badge">92 pts</span>
+                </div>
+                <p class="driver-line">Drivers:</p>
+                <p class="driver-names">Liam Lawson (#30), Isack Hadjar (#6)</p>
+                <p class="overview">
+                    A young, energetic team filled with rookie talent, Racing Bulls strive to establish themselves as a strong feeder team for Red Bull Racing.
+                </p>
+                <div class="image-wrap">
+                    <img src="Racingbull-constructor.png" alt="Isack Hadjar and Liam Lawson answering questions from fans." onclick="openImageModal(this)">
+                    <div class="image-caption">Isack Hadjar and Liam Lawson answering questions from fans.</div>
+                </div>
+            </article>
+
+            <!-- Aston Martin -->
+            <article class="team-card team-aston">
+                <div class="team-header">
+                    <h2>Aston Martin</h2>
+                    <span class="constructors-badge">89 pts</span>
+                </div>
+                <p class="driver-line">Drivers:</p>
+                <p class="driver-names">Fernando Alonso (#14), Lance Stroll (#18)</p>
+                <p class="overview">
+                    This veteran duo combines experience and consistency in a bid to strengthen Aston Martin's position in the midfield pack.
+                </p>
+                <div class="image-wrap">
+                    <img src="https://images.ps-aws.com/c?url=https%3A%2F%2Fd3cm515ijfiu6w.cloudfront.net%2Fwp-content%2Fuploads%2F2023%2F03%2F05200423%2Faston-martin-fernando-alonso-lance-stroll-planet-f1.jpg" alt="Fernando Alonso and Lance Stroll at the Bahrain Grand Prix" onclick="openImageModal(this)">
+                    <div class="image-caption">Fernando Alonso and Lance Stroll at the Bahrain Grand Prix</div>
+                </div>
+            </article>
+
+            <!-- Kick Sauber -->
+            <article class="team-card team-sauber">
+                <div class="team-header">
+                    <h2>Kick Sauber</h2>
+                    <span class="constructors-badge">79 pts</span>
+                </div>
+                <p class="driver-line">Drivers:</p>
+                <p class="driver-names">Nico Hülkenberg (#27), Gabriel Bortoleto (#5)</p>
+                <p class="overview">
+                    Sauber prepares for its Audi partnership by blending Hülkenberg's experience with Bortoleto's promising rookie season.
+                </p>
+                <div class="image-wrap">
+                    <img src="https://cdn-5.motorsport.com/images/amp/6xEwzL40/s6/nico-hulkenberg-sauber-gabriel.jpg" alt="Gabriel Bortoleto congratulating Nico Hülkenberg on his first podium. (British Grand Prix)" onclick="openImageModal(this)">
+                    <div class="image-caption">Gabriel Bortoleto congratulating Nico Hülkenberg on his first podium (British Grand Prix)</div>
+                </div>
+            </article>
+
+            <!-- Haas -->
+            <article class="team-card team-haas">
+                <div class="team-header">
+                    <h2>Haas</h2>
+                    <span class="constructors-badge">70 pts</span>
+                </div>
+                <p class="driver-line">Drivers:</p>
+                <p class="driver-names">Esteban Ocon (#31), Oliver Bearman (#87)</p>
+                <p class="overview">
+                    Haas refreshes its lineup with Ocon's experience and Bearman's rookie enthusiasm, targeting a stronger campaign.
+                </p>
+                <div class="image-wrap">
+                    <img src="https://staticg.sportskeeda.com/editor/2025/08/c2f25-17558767872231-1920.jpg" alt="Esteban Ocon and Oliver Bearman at F1 Grand Prix of Great Britain - Qualifying" onclick="openImageModal(this)">
+                    <div class="image-caption">
+                                            <div class="image-caption">Esteban Ocon and Oliver Bearman at F1 Grand Prix of Great Britain - Qualifying</div>
+                </div>
+            </article>
+
+            <!-- Alpine -->
+            <article class="team-card team-alpine">
+                <div class="team-header">
+                    <h2>Alpine</h2>
+                    <span class="constructors-badge">22 pts</span>
+                </div>
+                <p class="driver-line">Drivers:</p>
+                <p class="driver-names">Pierre Gasly (#10), Franco Colapinto (#43)</p>
+                <p class="overview">
+                    Alpine is developing young talent with Gasly's experience and Colapinto's rookie season. Jack Doohan participates as a test/reserve driver and may make a few race appearances.
+                </p>
+                <div class="image-wrap">
+                    <img src="https://img.republicworld.com/all_images/alpine-driver-pierre-gasly-of-france-and-franco-colapinto-of-argentina-1762529437526-16_9.webp" alt="Alpine driver Pierre Gasly and Franco Colapinto greet spectators during drivers parade before the Mexico Grand Prix" onclick="openImageModal(this)">
+                    <div class="image-caption">Alpine driver Pierre Gasly and Franco Colapinto greet spectators during drivers parade before the Mexico Grand Prix</div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    <!-- MODAL -->
+    <div id="imgModal" class="modal">
+        <span class="modal-close" onclick="closeImageModal()">&times;</span>
+        <img id="modalImage" class="modal-content" alt="">
+        <div id="modalCaption"></div>
+    </div>
+
+    <!-- SCRIPTS - ADDED toggleMenu() + your existing modal functions -->
+    <script>
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        function openImageModal(imgElement) {
+            const modal = document.getElementById('imgModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('modalCaption');
+            modal.style.display = 'block';
+            modalImg.src = imgElement.src;
+            captionText.textContent = imgElement.alt;
+        }
+
+        function closeImageModal() {
+            document.getElementById('imgModal').style.display = 'none';
+        }
+
+        document.getElementById('imgModal').addEventListener('click', function (e) {
+            if (e.target.id === 'imgModal') {
+                closeImageModal();
+            }
+        });
+    </script>
+</body>
+</html>

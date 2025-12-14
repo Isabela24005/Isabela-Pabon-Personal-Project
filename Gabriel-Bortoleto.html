@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gabriel Bortoleto | F1 Scrapbook Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<!-- SAME SAUBER TEAL STYLE AS HULKENBERG - Copy above style block -->
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+  color: #222;
+  line-height: 1.7;
+}
+/* NAVBAR */
+.navbar { display: flex; align-items: center; background: #1a2039; padding: 0 40px; height: 64px; position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; color: #ffffff; margin-right: 38px; text-decoration: none; }
+.nav-menu { display: flex; align-items: center; gap: 20px; }
+.nav-link { color: #fff; text-decoration: none; font-weight: 600; padding: 6px 10px; border-radius: 6px; transition: background 0.2s; }
+.nav-link:hover { background: rgba(0,0,0,0.2); }
+/* LAYOUT */
+.wrapper { max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px; display: flex; flex-wrap: wrap; gap: 40px; }
+/* Sauber Teal Theme */
+.photo-pane { flex: 1 1 450px; position: relative; border: 3px solid #0d9488; border-radius: 12px; overflow: hidden; box-shadow: 8px 8px 0 #5eead4; background: #f0fdfa; }
+.photo-pane::before, .photo-pane::after { content: ""; position: absolute; width: 80px; height: 25px; background: rgba(255,255,255,0.8); border: 1px solid #a7f3d0; transform: rotate(-6deg); top: 14px; left: 30%; }
+.photo-pane::after { top: auto; bottom: 16px; right: 25%; transform: rotate(8deg); }
+.photo-pane img { width: 100%; height: 100%; object-fit: cover; }
+.info-pane { flex: 1 1 650px; display: flex; flex-direction: column; gap: 25px; }
+.name-header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.name-header img.flag { width: 36px; height: 24px; border-radius: 3px; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+h1 { font-size: 2.5rem; font-weight: 800; }
+.subtitle { font-size: 1.1rem; color: #444; margin-bottom: 12px; }
+.details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px 25px; background: #ecfdf5; border: 2px dashed #5eead4; border-radius: 10px; padding: 18px 22px; box-shadow: 3px 3px 0 #a7f3d0; }
+.details-grid div p { margin-bottom: 2px; }
+.details-grid strong { display: block; color: #0f766e; }
+.note { background: #f0fdfa; padding: 14px 18px; border: 2px solid #a7f3d0; border-radius: 10px; width: fit-content; box-shadow: 4px 4px 0 #5eead4; position: relative; }
+.note::before { content: ""; position: absolute; width: 18px; height: 18px; background: #0d9488; border-radius: 50%; top: -9px; left: 20px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+.note h3 { margin-bottom: 6px; font-size: 1.05rem; color: #0f766e; }
+.photo-collage { display: flex; flex-wrap: wrap; gap: 16px; }
+.photo-thumb { position: relative; background: #fff; padding: 6px; border: 2px solid #a7f3d0; border-radius: 8px; box-shadow: 3px 3px 0 #5eead4; cursor: pointer; transition: transform 0.2s; }
+.photo-thumb:hover { transform: rotate(-2deg) scale(1.03); }
+.photo-thumb img { width: 180px; height: 120px; object-fit: cover; border-radius: 5px; }
+.photo-thumb p { text-align: center; font-size: 0.85rem; margin-top: 5px; color: #0f766e; }
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000; }
+.lightbox.active { display: flex; }
+.lightbox-content { background: #f0fdfa; padding: 20px; border-radius: 10px; text-align: center; border: 2px solid #a7f3d0; }
+.lightbox-content img { max-width: 90vw; max-height: 80vh; border-radius: 8px; }
+.lightbox-content p { margin-top: 10px; color: #0f766e; }
+.close-btn { position: absolute; top: 20px; right: 28px; font-size: 2rem; color: #fff; cursor: pointer; }
+@media (max-width: 850px) { .wrapper { flex-direction: column; } .photo-pane { height: 400px; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="logo">F1 Guide</a>
+  <div class="nav-menu">
+    <a href="Current-drivers.html" class="nav-link">← Back to Drivers</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+  <div class="photo-pane">
+    <img src="Gabriel.webp" alt="Gabriel Bortoleto">
+  </div>
+  <div class="info-pane">
+    <div class="name-header">
+      <h1>Gabriel Bortoleto</h1>
+      <img src="https://flagcdn.com/w40/br.png" alt="Brazilian Flag" class="flag">
+    </div>
+    <p class="subtitle">Kick Sauber · Brazilian · #5</p>
+
+    <div class="details-grid">
+      <div><strong>Born</strong><p>14/10/2004, São Paulo, Brazil</p></div>
+      <div><strong>Nationality</strong><p>Brazilian</p></div>
+      <div><strong>Racing number</strong><p>5</p></div>
+      <div><strong>F1 debut</strong><p>2025 Australian Grand Prix</p></div>
+      <div><strong>Height</strong><p>176 cm (5 ft 9 in)</p></div>
+      <div><strong>World Championships</strong><p>0</p></div>
+      <div><strong>Wins</strong><p>0</p></div>
+      <div><strong>Pole positions</strong><p>0</p></div>
+      <div><strong>Podiums</strong><p>0</p></div>
+      <div><strong>Fastest laps</strong><p>0</p></div>
+      <div><strong>Favourite circuit</strong><p>Interlagos, Brazil</p></div>
+      <div><strong>DNF's</strong><p>5</p></div>
+    </div>
+
+    <div class="note">
+      <h3>Career Notes</h3>
+      <p>2024 F2 Champion (youngest ever). Sauber rookie alongside podium hero Hülkenberg.</p>
+    </div>
+
+    <div class="note">
+      <h3>2025 Season</h3>
+      <p>19th in championship (19 points). Best: 8th x2. Promising rookie alongside veteran Hülkenberg.</p>
+    </div>
+
+    <div class="photo-collage">
+      <div class="photo-thumb" data-image="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/e58c5354-3dc6-4f4c-a463-e3b2f8a972db/8ff261b1-bfe1-4ad5-bb92-87122a83916d/864x486/match/image.jpg" data-caption="F1 debut with Sauber at Australian GP.">
+        <img src="https://d2n9h2wits23hf.cloudfront.net/image/v1/static/6057949432001/e58c5354-3dc6-4f4c-a463-e3b2f8a972db/8ff261b1-bfe1-4ad5-bb92-87122a83916d/864x486/match/image.jpg" alt="Debut">
+        <p>F1 Debut</p>
+      </div>
+      <div class="photo-thumb" data-image="https://preview.redd.it/the-crowd-cheering-gabriel-bortoletto-at-the-s%C3%A3o-paulo-v0-jp1y2za4390g1.jpeg?auto=webp&s=6c15fdeaf88df31fb1f8075fd26d815434b53c24" data-caption="Home race at Interlagos with Brazilian fans.">
+        <img src="https://preview.redd.it/the-crowd-cheering-gabriel-bortoletto-at-the-s%C3%A3o-paulo-v0-jp1y2za4390g1.jpeg?auto=webp&s=6c15fdeaf88df31fb1f8075fd26d815434b53c24" alt="Interlagos">
+        <p>Brazilian GP</p>
+      </div>
+      <div class="photo-thumb" data-image="https://cdn.motorsport.com/images/mgl/24vxZK46/s1000/gabriel-bortoleto-sauber.jpg" data-caption="Bortoleto putting on race gear.">
+        <img src="https://cdn.motorsport.com/images/mgl/24vxZK46/s1000/gabriel-bortoleto-sauber.jpg" alt="Sauber">
+        <p>Sauber Rookie</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <span class="close-btn" id="closeBtn">&times;</span>
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="">
+    <p id="lightboxCaption"></p>
+  </div>
+</div>
+
+<script>
+const thumbs = document.querySelectorAll('.photo-thumb');
+const lightbox = document.getElementById('lightbox');
+const img = document.getElementById('lightboxImg');
+const caption = document.getElementById('lightboxCaption');
+const closeBtn = document.getElementById('closeBtn');
+thumbs.forEach(t => { t.addEventListener('click', () => { img.src = t.dataset.image; caption.textContent = t.dataset.caption; lightbox.classList.add('active'); }); });
+closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+</script>
+</body>
+</html>

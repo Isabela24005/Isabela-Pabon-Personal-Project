@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Oscar Piastri | F1 Scrapbook Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Montserrat", sans-serif;
+  background: #fffdf6;
+  color: #222;
+  line-height: 1.7;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  align-items: center;
+  background: #1a2039;
+  padding: 0 40px;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin-right: 38px;
+  text-decoration: none;
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.nav-link:hover { background: rgba(0,0,0,0.2); }
+
+/* LAYOUT */
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* Photo Side */
+.photo-pane {
+  flex: 1 1 450px;
+  position: relative;
+  border: 3px solid #e2cfa3;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 #f2e4bf;
+  background: #fffaf1;
+}
+.photo-pane::before, .photo-pane::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 25px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid #d7c59f;
+  transform: rotate(-6deg);
+  top: 14px;
+  left: 30%;
+}
+.photo-pane::after {
+  top: auto;
+  bottom: 16px;
+  right: 25%;
+  transform: rotate(8deg);
+}
+.photo-pane img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info Side */
+.info-pane {
+  flex: 1 1 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Title + Flag */
+.name-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.name-header img.flag {
+  width: 36px;
+  height: 24px;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+/* Info Grid */
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px 25px;
+  background: #fff8ea;
+  border: 2px dashed #e3c481;
+  border-radius: 10px;
+  padding: 18px 22px;
+  box-shadow: 3px 3px 0 #f2d7b3;
+}
+.details-grid div p {
+  margin-bottom: 2px;
+}
+.details-grid strong {
+  display: block;
+  color: #333;
+}
+
+/* Notes */
+.note {
+  background: #fffdf5;
+  padding: 14px 18px;
+  border: 2px solid #e8d39b;
+  border-radius: 10px;
+  width: fit-content;
+  box-shadow: 4px 4px 0 #f2e1bc;
+  position: relative;
+}
+.note::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #f2d171;
+  border-radius: 50%;
+  top: -9px;
+  left: 20px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+.note h3 {
+  margin-bottom: 6px;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+/* Photo Collage */
+.photo-collage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.photo-thumb {
+  position: relative;
+  background: #fff;
+  padding: 6px;
+  border: 2px solid #e5d3a2;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 #eed9b0;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.photo-thumb:hover { transform: rotate(-2deg) scale(1.03); }
+.photo-thumb img {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.photo-thumb p {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.lightbox.active { display: flex; }
+.lightbox-content {
+  background: #fffdf7;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+.lightbox-content img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: 8px;
+}
+.lightbox-content p {
+  margin-top: 10px;
+}
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  .wrapper { flex-direction: column; }
+  .photo-pane { height: 400px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="logo">F1 Guide</a>
+  <div class="nav-menu">
+    <a href="Current-drivers.html" class="nav-link">← Back to Drivers</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+  <div class="photo-pane">
+    <img src="https://www.thetimes.com/imageserver/image/%2F537d4deb-c85b-45f0-be19-ad9a6773d6b7.jpg?crop=1944%2C2916%2C1028%2C0" alt="Oscar Piastri">
+  </div>
+
+  <div class="info-pane">
+    <!-- Name section with flag -->
+    <div class="name-header">
+      <h1>Oscar Piastri</h1>
+      <img src="https://flagcdn.com/w40/au.png" alt="Australian Flag" class="flag">
+    </div>
+    <p class="subtitle">McLaren · Australian · #81</p>
+
+    <div class="details-grid">
+  <div><strong>Born</strong><p>06/04/2001, Melbourne, Australia</p></div>
+  <div><strong>Nationality</strong><p>Australian</p></div>
+  <div><strong>Racing number</strong><p>81</p></div>
+  <div><strong>F1 debut</strong><p>2023 Bahrain Grand Prix</p></div>
+  <div><strong>Height</strong><p>178 cm (5 ft 10 in)</p></div>
+  <div><strong>World Championships</strong><p>0</p></div>
+  <div><strong>Wins</strong><p>9</p></div>
+  <div><strong>Pole positions</strong><p>6</p></div>
+  <div><strong>Podiums</strong><p>25</p></div>
+  <div><strong>Fastest laps</strong><p>9</p></div>
+  <div><strong>Favourite circuit</strong><p>Spa-Francorchamps, Belgium</p></div>
+  <div></strong><b>DNF's</b></strong><p>4</p></div>
+</div>
+
+    <div class="note">
+      <h3>Career Notes</h3>
+      <p>2021 Formula 2 Champion. Known for clinical precision and rapid adaptation to F1. McLaren's rising star alongside Norris.</p>
+    </div>
+
+    <div class="note">
+      <h3>2025 Season</h3>
+      <p>Strong championship contender with multiple victories, showcasing maturity beyond his years.</p>
+    </div>
+
+    <div class="photo-collage">
+      <div class="photo-thumb" data-image="https://www.autohebdo.fr/app/uploads/2025/07/DPPI_00125016_2775-753x494.jpg" data-caption="Oscar powering through Eau Rouge at his favorite circuit, Spa.">
+        <img src="https://www.autohebdo.fr/app/uploads/2025/07/DPPI_00125016_2775-753x494.jpg" alt="Spa">
+        <p>Spa-Francorchamps</p>
+      </div>
+      <div class="photo-thumb" data-image="https://raceface.tv/wp-content/uploads/2024/07/2024-F1-Hungary-Oscar-Piastri-Podium-Celebration-McLaren-Photo.jpeg" data-caption="Podium celebration after a dominant victory.">
+        <img src="https://raceface.tv/wp-content/uploads/2024/07/2024-F1-Hungary-Oscar-Piastri-Podium-Celebration-McLaren-Photo.jpeg" alt="Podium">
+        <p>Podium Moment</p>
+      </div>
+      <div class="photo-thumb" data-image="https://speedcafe.us/wp-content/uploads/2023/09/piastri-f1-testing-mclaren.jpg" data-caption="McLaren garage action with the papaya machinery.">
+        <img src="https://speedcafe.us/wp-content/uploads/2023/09/piastri-f1-testing-mclaren.jpg" alt="McLaren">
+        <p>McLaren Action</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <span class="close-btn" id="closeBtn">&times;</span>
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="">
+    <p id="lightboxCaption"></p>
+  </div>
+</div>
+
+<script>
+const thumbs = document.querySelectorAll('.photo-thumb');
+const lightbox = document.getElementById('lightbox');
+const img = document.getElementById('lightboxImg');
+const caption = document.getElementById('lightboxCaption');
+const closeBtn = document.getElementById('closeBtn');
+
+thumbs.forEach(t => {
+  t.addEventListener('click', () => {
+    img.src = t.dataset.image;
+    caption.textContent = t.dataset.caption;
+    lightbox.classList.add('active');
+  });
+});
+closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) lightbox.classList.remove('active');
+});
+</script>
+
+</body>
+</html>

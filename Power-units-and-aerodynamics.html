@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Power Units and Aerodynamics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #ffffff;
+      color: #111111;
+      line-height: 1.7;
+    }
+
+    /* NAVBAR */
+    /* ===== NAVBAR ===== */
+.navbar {
+    display: flex;
+    align-items: center;
+    background: #1a2039;
+    padding: 0 15px;
+    height: 52px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 35px;
+}
+.logo {
+    font-size: 1.3rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: #fff;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: auto;
+}
+.hamburger span {
+    width: 22px;
+    height: 2.5px;
+    background: #fff;
+    margin: 2.5px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+.nav-item {
+    position: relative;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    transition: background 0.22s;
+}
+.nav-link:hover { 
+    background: #1a2039; 
+}
+.dropdown {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    min-width: 150px;
+    max-height: 60vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.18);
+    padding: 4px 0;
+}
+.nav-item:hover .dropdown,
+.nav-item:focus-within .dropdown {
+    display: block;
+}
+.dropdown-link {
+    display: block;
+    color: #000000;
+    padding: 5px 12px;
+    text-decoration: none;
+    font-size: 0.88em;
+    transition: background 0.15s;
+}
+.dropdown-link:hover {
+    background: #f2f2f2;
+    color: #e21b3c;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+    .hamburger { display: flex; }
+    .nav-menu {
+        position: fixed;
+        top: 52px;
+        left: 0;
+        width: 100vw;
+        height: calc(100vh - 52px);
+        background: rgba(10,15,26,0.95);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        padding: 20px 0;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1001;
+    }
+    .nav-menu.active { transform: translateY(0); }
+    .nav-item { width: 90%; text-align: center; }
+    .nav-link { display: block; padding: 15px; font-size: 1.1rem; }
+    .dropdown {
+        position: static;
+        width: 100%;
+        max-height: none;
+        background: #ffffff;
+        box-shadow: none;
+        border-radius: 0;
+    }
+    .dropdown-link { color: #000000; }
+    .navbar { padding: 0 12px; }
+}
+
+
+    /* PAGE WRAPPER */
+    .wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px 60px;
+    }
+
+    /* TITLES WITH RED UNDERLINE */
+    .page-title, .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      position: relative;
+      display: inline-block;
+    }
+    .page-title::after, .section-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 80px;
+      height: 3px;
+      background: #ff3b3f;
+      border-radius: 999px;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .hero-text { font-size: 0.98rem; }
+    .hero-highlight { font-weight: 700; color: #e21b3c; }
+    .hero-image {
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+    .hero-image:hover img {
+      transform: scale(1.03);
+      filter: brightness(0.9);
+    }
+    .hero-caption {
+      font-size: 0.8rem;
+      color: #555555;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; }
+    }
+
+    /* TWO-COLUMN INFO SECTION */
+    .info-two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .info-box {
+      background: #f6f6fb;
+      border-radius: 14px;
+      padding: 18px 18px 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+    .info-box h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a2039;
+      margin-bottom: 6px;
+    }
+    .info-box p {
+      font-size: 0.93rem;
+      color: #222222;
+      margin-bottom: 6px;
+    }
+
+    /* LABELED CAR DIAGRAM */
+    .car-section {
+      margin-top: 20px;
+      margin-bottom: 44px;
+    }
+    .car-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+    }
+    .car-wrapper {
+      position: relative;
+      border-radius: 16px;
+      overflow: visible;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+      max-width: 800px
+    }
+    .car-wrapper img {
+      width: 100%;
+      display: block;
+    }
+
+    /* Hotspot dots */
+    .car-hotspot {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      cursor: default;
+      box-shadow: 0 0 8px rgba(0,0,0,0.6);
+    }
+    .hotspot-engine   { background: #ff3b3f; }
+    .hotspot-mguk     { background: #1219e8; }
+    .hotspot-mguh     { background: #f1710f; }
+    .hotspot-battery  { background: #9a00d6; }
+    .hotspot-turbo    { background: #3498db; }
+    .hotspot-drs      { background: #22e6cf; }
+    .hotspot-floor    { background: #ab0059; }
+
+    .hotspot-engine     { top: 24%; left: 69%; }
+    .hotspot-mguk    { top: 29%; left: 72%; }
+    .hotspot-mguh    { top: 24%; left: 65%; }
+    .hotspot-battery { top: 30%; left: 67%; }
+    .hotspot-turbo   { top: 25%; left: 75%; }
+    .hotspot-drs     { top: 11%; left: 82%; }
+    .hotspot-floor   { top: 45%; left: 79%; }
+
+    /* Tooltip box */
+    .car-hotspot .tooltip {
+      position: absolute;
+      left: 50%;
+      top: -8px;
+      transform: translate(-50%, -100%);
+      background: rgba(20, 20, 20, 0.94);
+      color: #ffffff;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      line-height: 1.4;
+      min-width: 160px;
+      max-width: 220px;
+      text-align: left;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+      z-index: 5;
+      white-space: normal;
+    }
+    .car-hotspot .tooltip::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px;
+      border-style: solid;
+      border-color: rgba(20,20,20,0.94) transparent transparent transparent;
+    }
+    .car-hotspot:hover .tooltip {
+      opacity: 1;
+    }
+
+    .car-legend {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .legend-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .car-layout { grid-template-columns: 1fr; }
+    }
+
+    /* EXTRA FACTS TILES */
+     .facts-grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .fact-tile {
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fdf4f0;
+      border-left: 4px solid #ff3b3f;
+      font-size: 0.9rem;
+    }
+
+    /* IMAGE MODAL */
+    .image-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      z-index: 9999;
+    }
+    .modal-image {
+      max-width: 90%;
+      max-height: 80%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 10px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+    }
+    .modal-caption {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #f5f5f5;
+      font-size: 0.95rem;
+      text-align: center;
+      max-width: 650px;
+      padding: 0 10px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 28px;
+      font-size: 32px;
+      color: #ffffff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">F1 Guide</a>
+    <div class="nav-menu" id="navMenu">
+        <div class="nav-item">
+            <a href="#" class="nav-link">About F1</a>
+            <div class="dropdown">
+                <a href="what-is-formula1.html" class="dropdown-link">What is Formula 1</a>
+                <a href="History-of-F1.html" class="dropdown-link">History of F1</a>
+                <a href="F1-glossary.html" class="dropdown-link">F1 Glossary</a>
+            </div>
+        </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Teams And Drivers</a>
+        <div class="dropdown">
+          <a href="2025-constructors.html" class="dropdown-link">2025 Constructors Championship</a>
+          <a href="Current-drivers.html" class="dropdown-link">Current Drivers</a>
+          <a href="Driver-academies.html" class="dropdown-link">Driver Academies</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Cars and Technology</a>
+        <div class="dropdown">
+          <a href="Car-designs-and-innovations.html" class="dropdown-link">Car Designs & Innovations</a>
+          <a href="Power-units-and-aerodynamics.html" class="dropdown-link">Power Units & Aerodynamics</a>
+          <a href="Technical-rules.html" class="dropdown-link">Technical Rules</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Tires</a>
+        <div class="dropdown">
+          <a href="Tire-types-and-compounds.html" class="dropdown-link">Tire Types and Compounds</a>
+          <a href="Tire-rules-and-allocations.html" class="dropdown-link">Tire Rules and Allocations</a>
+          <a href="Tire-strategy.html" class="dropdown-link">Tire Strategy</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Race and Circuits</a>
+        <div class="dropdown">
+          <a href="Race-calender.html" class="dropdown-link">Race Calendar</a>
+          <a href="GP-circuits.html" class="dropdown-link">GP Circuits</a>
+          <a href="Notable-races-and-moments.html" class="dropdown-link">Notable Races and Moments</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">How F1 Works</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link">Race Formats and Scoring</a>
+          <a href="#" class="dropdown-link">Qualifying & Sprint Races</a>
+          <a href="#" class="dropdown-link">Race Flags and Signals</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Fan Zone</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link">How to Watch and Attend</a>
+          <a href="#" class="dropdown-link">Fan Clubs and Experiences</a>
+          <a href="#" class="dropdown-link">Trivia and Fun Facts</a>
+          <a href="scrapbook.html" class="dropdown-link">Scrapbook</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Media</a>
+        <div class="dropdown">
+          <a href="photo-gallery.html" class="dropdown-link">Photo Gallery</a>
+          <a href="video-highlights.html" class="dropdown-link">Video Highlights</a>
+        </div>
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</nav>
+
+  <main class="wrapper">
+    <h1 class="page-title">Power Units and Aerodynamics</h1>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <p>A Formula&nbsp;1 power unit is a super‑advanced engine system that mixes a 1.6‑liter V6 turbo engine with powerful hybrid parts. The hybrid system uses electric motors and batteries to store extra energy and then fire it back for bursts of speed.</p>
+        <p>Together, the internal combustion engine and hybrid system can produce well over <span class="hero-highlight">900 horsepower</span>, while still using less fuel than older F1 engines.</p>
+      </div>
+      <div>
+        <div class="hero-image">
+          <img class="clickable-image"
+               src="https://cdn-5.motorsport.com/images/amp/6AEweEq6/s6/mercedes-f1-power-units-2014-2.jpg" 
+               alt="Modern F1 power unit and hybrid system"
+               data-caption="A modern F1 power unit combines a V6 turbo with hybrid energy recovery.">
+        </div>
+        <p class="hero-caption">A modern F1 power unit combines a V6 turbo with hybrid energy recovery.</p>
+      </div>
+    </section>
+
+    <!-- HYBRID SYSTEM + WHY IT MATTERS -->
+    <h2 class="section-title">Hybrid Systems and Why They Matter</h2>
+    <section class="info-two-col">
+      <article class="info-box">
+        <h3>How Hybrid Systems Work</h3>
+        <p>During braking, F1 cars capture energy that would normally be wasted as heat and store it in batteries using the MGU‑K (kinetic) unit. They also recover heat energy from the turbocharger using the MGU‑H (heat) unit.</p>
+        <p>Drivers can then use this stored energy for extra power when accelerating out of corners or defending on straights, giving short but powerful boosts in speed.</p>
+      </article>
+      <article class="info-box">
+        <h3>Why These Systems Matter</h3>
+        <p>Hybrid power units let F1 cars reach incredible top speeds while using less fuel. Teams must also follow strict rules on engine size, electric boost, and fuel usage, so efficiency becomes just as important as raw power.</p>
+        <p>Aerodynamic parts work with the power unit by keeping the car stable and glued to the track, so drivers can use all that horsepower without losing control.</p>
+      </article>
+    </section>
+
+    <!-- LABELED CAR IMAGE -->
+    <section class="car-section">
+      <h2 class="section-title">Labeled F1 Car: Power and Aero</h2>
+      <div class="car-layout">
+        <div class="car-wrapper">
+          <img src="https://t4.ftcdn.net/jpg/07/09/98/11/360_F_709981187_96Wj711IuBqEe9mdUqQW4DaF3OoJKe1f.jpg" alt="Labeled F1 car showing power unit and aero parts">
+          <!-- colored hotspots with hover tooltips -->
+          <div class="car-hotspot hotspot-engine">
+            <span class="tooltip">Engine (Internal Combustion Engine): 1.6L V6 turbo that provides the main power.</span>
+          </div>
+          <div class="car-hotspot hotspot-mguk">
+            <span class="tooltip">MGU‑K: Recovers energy under braking and turns it into electric power.</span>
+          </div>
+          <div class="car-hotspot hotspot-mguh">
+            <span class="tooltip">MGU‑H: Recovers heat from the turbocharger and can spin the turbo or charge the battery.</span>
+          </div>
+          <div class="car-hotspot hotspot-battery">
+            <span class="tooltip">Energy Store (battery): Holds recovered energy until the driver uses it for extra boost.</span>
+          </div>
+          <div class="car-hotspot hotspot-turbo">
+            <span class="tooltip">Turbocharger: Compresses air going into the engine so it can burn more fuel and make more power.</span>
+          </div>
+          <div class="car-hotspot hotspot-drs">
+            <span class="tooltip">DRS rear wing flap: Opens on straights to reduce drag and help overtaking.</span>
+          </div>
+          <div class="car-hotspot hotspot-floor">
+            <span class="tooltip">Ground‑effect floor: Shapes airflow under the car to create suction and downforce.</span>
+          </div>
+        </div>
+
+        <div class="car-legend">
+          <p>Hover over the colored dots on the car to learn what each power‑unit or aero part does.</p>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#ff3b3f;"></span> Engine – 1.6L V6 turbo engine
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#1219e8;"></span> MGU‑K – braking energy recovery
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#f1710f;"></span> MGU‑H – turbo heat energy recovery
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#9a00d6;"></span> Battery – energy store
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#3498db;"></span> Turbocharger
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#22e6cf;"></span> DRS flap on rear wing
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot" style="background:#ab0059;"></span> Floor / underbody ground effect
+        </div>
+      </div>
+    </section>
+
+    <!-- EXTRA FACTS -->
+    <h2 class="section-title">Extra Facts</h2>
+    <section class="facts-grid">
+      <div class="fact-tile">
+        Every power unit must follow limits on engine size, fuel use, electric boost, and how many engines a driver can use in a season.
+      </div>
+      <div class="fact-tile">
+        Teams search for tiny gains in aerodynamics and hybrid energy usage, because a small improvement can mean a big difference over a full race distance.
+      </div>
+      <div class="fact-tile">
+        Aerodynamics also helps cars race closely by managing how much turbulent air they create behind them, which keeps battles safer and more exciting.
+      </div>
+    </section>
+  </main>
+
+  <!-- IMAGE MODAL (still used for hero image) -->
+  <div class="image-modal" id="imageModal" onclick="closeModal(event)">
+    <span class="modal-close" onclick="closeModal(event)">&times;</span>
+    <img class="modal-image" id="modalImg" alt="">
+    <div class="modal-caption" id="modalCaption"></div>
+  </div>
+
+  <script>
+    // Clickable images (hero image only)
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.clickable-image').forEach(img => {
+        img.addEventListener('click', function() {
+          const modal = document.getElementById('imageModal');
+          const modalImg = document.getElementById('modalImg');
+          const modalCaption = document.getElementById('modalCaption');
+          modal.style.display = 'block';
+          modalImg.src = this.src;
+          modalCaption.textContent = this.dataset.caption || this.alt;
+        });
+      });
+    });
+
+    function closeModal(event) {
+      event.stopPropagation();
+      document.getElementById('imageModal').style.display = 'none';
+    }
+    function toggleMenu() {
+    document.getElementById('navMenu').classList.toggle('active');
+}
+
+  </script>
+</body>
+</html>

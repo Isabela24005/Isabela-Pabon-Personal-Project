@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>2026 F1 Race Calendar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #fff;
+      color: #000;
+      line-height: 1.6;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      align-items: center;
+      background: #1a2039;
+      padding: 0 40px;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #ffffff;
+      margin-right: 38px;
+      text-decoration: none;
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .nav-item { position: relative; font-size: 0.98rem; font-weight: 600; }
+    .nav-link {
+      color: #ffffff;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .nav-link:hover { background: rgba(0,0,0,0.18); }
+    .dropdown {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      min-width: 200px;
+      background: #ffffff;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+      padding: 8px 0;
+    }
+    .nav-item:hover .dropdown { display: block; }
+    .dropdown-link {
+      display: block;
+      padding: 8px 16px;
+      font-size: 0.92rem;
+      color: #222222;
+      text-decoration: none;
+    }
+    .dropdown-link:hover { background: #f2f2f2; color: #e21b3c; }
+
+    @media (max-width: 900px) {
+      .navbar {
+        flex-wrap: wrap;
+        padding: 0 12px;
+        height: auto;
+      }
+      .nav-menu { gap: 10px; }
+    }
+
+    /* PAGE WRAPPER */
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 16px 60px;
+    }
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    /* LINKS ROW */
+    .resource-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+    .resource-links a {
+      color: #e21b3c;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .resource-links a:hover { text-decoration: underline; }
+
+    /* TEXT SECTIONS */
+    .section {
+      margin-bottom: 28px;
+    }
+    .section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+    .section p {
+      font-size: 0.96rem;
+      margin-bottom: 6px;
+    }
+    .section small {
+      font-size: 0.82rem;
+      color: #555;
+    }
+
+    /* small inline images after paragraphs */
+    .section-figure {
+      margin-top: 10px;
+      margin-bottom: 6px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .section-figure img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+    }
+    .section-figure figcaption {
+      font-size: 0.8rem;
+      margin-top: 4px;
+      color: #444;
+    }
+
+    /* CALENDAR GRID */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 12px;
+    }
+    @media (max-width: 1000px) {
+      .calendar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 650px) {
+      .calendar-grid { grid-template-columns: 1fr; }
+    }
+
+    .race-card {
+      background: #f7f7f7;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .race-image-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+    .race-image-wrapper img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease, filter 0.25s ease;
+      cursor: pointer;
+    }
+    .race-image-wrapper:hover img {
+      transform: scale(1.05);
+      filter: brightness(0.85);
+    }
+    .race-caption {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+      color: #ffffff;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    .race-content {
+      padding: 10px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+    .race-title {
+      font-weight: 800;
+      font-size: 0.98rem;
+    }
+    .race-meta {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #555;
+    }
+    .race-flags {
+      font-size: 0.8rem;
+      color: #e21b3c;
+      font-weight: 700;
+    }
+    .sprint-badge {
+      display: inline-block;
+      background: #e21b3c;
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      margin-left: 6px;
+    }
+
+    /* MODAL */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    .modal.open { display: flex; }
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+      text-align: center;
+    }
+    .modal-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      display: block;
+      border-radius: 10px;
+      margin: 0 auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: -32px;
+      right: 0;
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .modal-caption {
+      margin-top: 8px;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">F1 Guide</a>
+
+    <div class="nav-menu">
+      <div class="nav-item">
+        <a href="#" class="nav-link">About F1</a>
+        <div class="dropdown">
+          <a href="what-is-formula1.html" class="dropdown-link">What is Formula 1</a>
+          <a href="History-of-F1.html" class="dropdown-link">History of F1</a>
+          <a href="F1-glossary.html" class="dropdown-link">F1 Glossary</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Teams And Drivers</a>
+        <div class="dropdown">
+          <a href="2025-constructors.html" class="dropdown-link">2025 Constructors Championship</a>
+          <a href="Current-drivers.html" class="dropdown-link">Current Drivers</a>
+          <a href="Notable-past-drivers.html" class="dropdown-link">Notable Past Drivers</a>
+          <a href="Driver-academies.html" class="dropdown-link">Driver Academies</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Cars and Technology</a>
+        <div class="dropdown">
+          <a href="Car-designs-and-innovations.html" class="dropdown-link">Car Design and Innovations</a>
+          <a href="Power-units-and-aerodynamics.html" class="dropdown-link">Power Units & Aerodynamics</a>
+          <a href="Technical-rules.html" class="dropdown-link">Technical Rules</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Tires</a>
+        <div class="dropdown">
+          <a href="Tire-types-and-compounds.html" class="dropdown-link">Tire Types and Compounds</a>
+          <a href="Tire-rules-and-allocations.html" class="dropdown-link">Tire Rules and Allocations</a>
+          <a href="Tire-strategy.html" class="dropdown-link">Tire Strategy</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Race and Circuits</a>
+        <div class="dropdown">
+          <a href="Race-calendar-2026.html" class="dropdown-link">Race Calendar</a>
+          <a href="GP-circuits.html" class="dropdown-link">GP Circuits</a>
+          <a href="Notable-races-and-moments.html" class="dropdown-link">Notable Races and Moments</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">How F1 Works</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link">Race Formats and Scoring</a>
+          <a href="#" class="dropdown-link">Qualifying & Sprint Races</a>
+          <a href="#" class="dropdown-link">Race Flags and Signals</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Fan Zone</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link">How to Watch and Attend</a>
+          <a href="#" class="dropdown-link">Fan Clubs and Experiences</a>
+          <a href="#" class="dropdown-link">Trivia and Fun Facts</a>
+          <a href="#" class="dropdown-link">Scrapbook</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Media</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link">Photo Gallery</a>
+          <a href="#" class="dropdown-link">Video Highlights</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrapper">
+    <h1>2026 F1 Race Calendar</h1>
+    <p class="subtitle">
+      Explore all 24 Grands Prix of the 2026 Formula 1 season, with sprint weekends, circuit images, and a visual summary of the new era of regulations.
+    </p>
+
+    <!-- Overview -->
+    <section class="section">
+      <h2>Overview of the 2026 Season</h2>
+      <p>
+        The 2026 Formula 1 season runs over 24 rounds from March 6–8 in Australia to December 4–6 in Abu Dhabi, visiting circuits on five continents.
+      </p>
+      <p>
+        It introduces new technical regulations and sustainable fuels while keeping a logical geographical flow that groups races regionally to ease logistics.
+      </p>
+    </section>
+
+    <!-- Pre-season -->
+    <section class="section">
+      <h2>Pre-Season Testing</h2>
+      <p>
+        Teams complete three pre-season tests: a private session at Circuit de Barcelona‑Catalunya from January 26–30, followed by Bahrain tests on February 11–13 and 18–20.
+      </p>
+      <p>
+        These days are crucial for validating 2026-spec cars, understanding the new power units, and tuning setups before competitive running begins in Melbourne.
+      </p>
+    </section>
+
+    <!-- Calendar grid -->
+    <section class="section">
+      <h2>Race Calendar</h2>
+      <p>
+        Below is the full 2026 schedule with each Grand Prix, venue, and sprint designation, plus circuit images that show captions on hover.
+      </p>
+      <small>*Madrid circuit is a new addition and remains subject to FIA circuit homologation.</small>
+
+      <div class="calendar-grid">
+        <!-- 1 Australia -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/fom-website/campaign/support-promoter/australia/FAQ%2025%20SD_2024_Australia_Helicopter_200%20169.webp" alt="Albert Park Circuit, Melbourne">
+            <div class="race-caption">Albert Park Circuit – Lakeside park layout in Melbourne.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Australian Grand Prix</div>
+            <div class="race-meta">March 6–8 · Albert Park, Melbourne · Australia</div>
+            <div class="race-flags">Round 1 · Season opener</div>
+          </div>
+        </article>
+
+        <!-- 2 China (Sprint) -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://external-preview.redd.it/JTLR4eKwhIpEyeBpAdfamMUOzlEIv5k-_K3lV0ZrAhw.jpg?auto=webp&s=265643026d9e05d3a088484ccf2e2fab37ef4a8c" alt="Shanghai International Circuit">
+            <div class="race-caption">Shanghai – Long back straight and technical infield.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Chinese Grand Prix <span class="sprint-badge">Sprint</span></div>
+            <div class="race-meta">March 13–15 · Shanghai International Circuit · China</div>
+            <div class="race-flags">Round 2 · Asia</div>
+          </div>
+        </article>
+
+        <!-- 3 Japan -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://external-preview.redd.it/gHZXumdESFzM7cUrIDdZRvHrdtHo9TxrNfAPsZ67Q0M.jpg?width=640&crop=smart&auto=webp&s=748fc30983e9bfbccb3e584d570ec177a0089e28" alt="Suzuka Circuit">
+            <div class="race-caption">Suzuka – Iconic figure‑eight circuit with fast ‘S’ curves.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Japanese Grand Prix</div>
+            <div class="race-meta">March 27–29 · Suzuka Circuit · Japan</div>
+            <div class="race-flags">Round 3 · Asia</div>
+          </div>
+        </article>
+
+        <!-- 4 Bahrain -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://motorsportguides.com//wp-content/uploads/2019/02/bahrain-international-circuit-aerial.jpeg" alt="Bahrain International Circuit">
+            <div class="race-caption">Bahrain – Desert night race with heavy braking zones.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Bahrain Grand Prix</div>
+            <div class="race-meta">April 10–12 · Bahrain International Circuit · Bahrain</div>
+            <div class="race-flags">Round 4 · Middle East</div>
+          </div>
+        </article>
+
+        <!-- 5 Saudi Arabia -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://media.formula1.com/image/upload/c_lfill,w_2048/q_auto/v1740000000/content/dam/fom-website/manual/Misc/2021manual/2021MexcianGP/Pre-Race/f036b0b1-15ce-496d-a4a9-17f1fa48f8ce.webp" alt="Jeddah Corniche Circuit">
+            <div class="race-caption">Jeddah Corniche – Ultra‑fast street circuit on the Red Sea.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Saudi Arabian Grand Prix</div>
+            <div class="race-meta">April 17–19 · Jeddah Corniche Circuit · Saudi Arabia</div>
+            <div class="race-flags">Round 5 · Middle East</div>
+          </div>
+        </article>
+
+        <!-- 6 USA Miami (Sprint) -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://www.grandprixgrandtours.com/wp-content/uploads/2024/04/GPGT_Miami_Banner_shutterstock_2153075881.webp" alt="Miami International Autodrome">
+            <div class="race-caption">Miami – Around Hard Rock Stadium with mixed speed sections.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Miami Grand Prix <span class="sprint-badge">Sprint</span></div>
+            <div class="race-meta">May 1–3 · Miami International Autodrome · USA</div>
+            <div class="race-flags">Round 6 · North America</div>
+          </div>
+        </article>
+
+        <!-- 7 Canada (Sprint) -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://e2.365dm.com/16/01/768x432/montreal-aerial-formula-1-canada-f1_3399841.jpg?20160114165220" alt="Circuit Gilles Villeneuve, Montreal">
+            <div class="race-caption">Montreal – Island circuit with the ‘Wall of Champions’ chicane.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Canadian Grand Prix <span class="sprint-badge">Sprint</span></div>
+            <div class="race-meta">May 22–24 · Circuit Gilles Villeneuve, Montreal · Canada</div>
+            <div class="race-flags">Round 7 · North America</div>
+          </div>
+        </article>
+
+        <!-- 8 Monaco -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://www.monacograndprixticket.com/images/terrasses/Ermano1.webp" alt="Circuit de Monaco">
+            <div class="race-caption">Monaco – Tight, glamorous street circuit around Monte Carlo harbor.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Monaco Grand Prix</div>
+            <div class="race-meta">June 5–7 · Circuit de Monaco · Monaco</div>
+            <div class="race-flags">Round 8 · Europe</div>
+          </div>
+        </article>
+
+        <!-- 9 Spain Barcelona -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/manual/Misc/2023manual/Pre-season/February/SD_2022_Spain_F1-Fan-Zone_130.webp" alt="Circuit de Barcelona-Catalunya">
+            <div class="race-caption">Barcelona – Balanced layout used extensively for testing.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Spanish Grand Prix (Barcelona)</div>
+            <div class="race-meta">June 12–14 · Circuit de Barcelona‑Catalunya · Spain</div>
+            <div class="race-flags">Round 9 · Europe</div>
+          </div>
+        </article>
+
+        <!-- 10 Austria -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://www.grandprix247.com/wp-content/uploads/2018/06/RedBullRing.jpg" alt="Red Bull Ring, Spielberg">
+            <div class="race-caption">Red Bull Ring – Short, hilly circuit in the Styrian mountains.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Austrian Grand Prix</div>
+            <div class="race-meta">June 26–28 · Red Bull Ring, Spielberg · Austria</div>
+            <div class="race-flags">Round 10 · Europe</div>
+          </div>
+        </article>
+
+        <!-- 11 Great Britain (Sprint) -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://static01.nyt.com/images/2019/07/13/sports/13sp-silverstone-inyt1/merlin_157516356_009c6be7-3977-4ad6-b4bc-52d2addf96e1-superJumbo.jpg" alt="Silverstone Circuit">
+            <div class="race-caption">Silverstone – High‑speed sweeps and classic F1 venue.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">British Grand Prix <span class="sprint-badge">Sprint</span></div>
+            <div class="race-meta">July 3–5 · Silverstone Circuit · Great Britain</div>
+            <div class="race-flags">Round 11 · Europe</div>
+          </div>
+        </article>
+
+        <!-- 12 Belgium -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://www.spa-francorchamps.be/assets/cache/f35ab037-9e42-439a-b1af-176b4422646a/circuit-de-spa-francorchamps-vues-obliques-7-juillet-2023simon-schmitt-globalview-hd-38.jpg" alt="Spa-Francorchamps">
+            <div class="race-caption">Spa‑Francorchamps – Long, flowing lap through the Ardennes.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Belgian Grand Prix</div>
+            <div class="race-meta">July 17–19 · Spa‑Francorchamps · Belgium</div>
+            <div class="race-flags">Round 12 · Europe</div>
+          </div>
+        </article>
+
+        <!-- 13 Hungary -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://driver61.com/wp-content/uploads/2019/08/Hungaroring-Circuit-Guide.jpg" alt="Hungaroring">
+            <div class="race-caption">Hungaroring – Tight, twisting circuit near Budapest.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Hungarian Grand Prix</div>
+            <div class="race-meta">July 24–26 · Hungaroring, Budapest · Hungary</div>
+            <div class="race-flags">Round 13 · Europe</div>
+          </div>
+        </article>
+
+        <!-- 14 Netherlands (Sprint) -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/manual/Misc/ZANDVOORT/Photo-051-JRD-2018-Essay-BX5C2339.webp" alt="Zandvoort Circuit">
+            <div class="race-caption">Zandvoort – Banking and dunes on the Dutch coast.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Dutch Grand Prix <span class="sprint-badge">Sprint</span></div>
+            <div class="race-meta">August 21–23 · Zandvoort Circuit · Netherlands</div>
+            <div class="race-flags">Round 14 · Europe</div>
+          </div>
+        </article>
+
+        <!-- 15 Italy Monza -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://images.ps-aws.com/c?url=https%3A%2F%2Fd3cm515ijfiu6w.cloudfront.net%2Fwp-content%2Fuploads%2F2023%2F08%2F30110021%2Fmonza-italian-grand-prix-aerial-view-planetf1.jpg" alt="Monza Circuit">
+            <div class="race-caption">Monza – Temple of Speed with long straights and chicanes.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Italian Grand Prix</div>
+            <div class="race-meta">September 4–6 · Monza Circuit · Italy</div>
+            <div class="race-flags">Round 15 · Europe</div>
+          </div>
+        </article>
+
+        <!-- 16 Spain Madrid (new) -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://s3.eu-west-1.amazonaws.com/s3.eip.telegraph.co.uk/particles/illustrator-embed-uploads/e9c3825c-43b1-4844-9b13-fc73933fabde/2401-Barcelona-F1-TRACK-medium.jpg" alt="Madrid Circuit (new)">
+            <div class="race-caption">Madrid – New urban-style circuit around the IFEMA area.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Spanish Grand Prix (Madrid)*</div>
+            <div class="race-meta">September 11–13 · Madrid Circuit · Spain*</div>
+            <div class="race-flags">Round 16 · New event</div>
+          </div>
+        </article>
+
+        <!-- 17 Azerbaijan -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://eurasianet.org/sites/default/files/styles/article/public/2019-04/Ck5jDc2XAAAjpSU.jpg?itok=-LQJ6XCV" alt="Baku City Circuit">
+            <div class="race-caption">Baku – Long straights and tight castle section.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Azerbaijan Grand Prix</div>
+            <div class="race-meta">September 25–27 · Baku City Circuit · Azerbaijan</div>
+            <div class="race-flags">Round 17 · Street race</div>
+          </div>
+        </article>
+
+        <!-- 18 Singapore (Sprint) -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/manual/Misc/2022manual/2022Races/JapaneseGP/Post-race/Aerial%20view%20of%20the%20Marina%20Bay%20Street%20Circuit.webp" alt="Marina Bay Street Circuit">
+            <div class="race-caption">Marina Bay – Night race through downtown Singapore.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Singapore Grand Prix <span class="sprint-badge">Sprint</span></div>
+            <div class="race-meta">October 9–11 · Marina Bay Street Circuit · Singapore</div>
+            <div class="race-flags">Round 18 · Asia</div>
+          </div>
+        </article>
+
+        <!-- 19 USA Austin -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://media.formula1.com/image/upload/t_16by9South/c_lfill,w_3392/q_auto/v1740000000/trackside-images/2023/F1_Grand_Prix_of_United_States___Practice__Qualifying/1746900067.webp" alt="Circuit of the Americas, Austin">
+            <div class="race-caption">COTA – Modern track with big elevation and variety of corners.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">United States Grand Prix (Austin)</div>
+            <div class="race-meta">October 23–25 · Circuit of the Americas, Austin · USA</div>
+            <div class="race-flags">Round 19 · North America</div>
+          </div>
+        </article>
+
+        <!-- 20 Mexico -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://cdn.sanity.io/images/fnx611yr/production/5b45e32be2b1f6c00cdeff1782f25df7fa922058-5181x2914.jpg" alt="Autódromo Hermanos Rodríguez">
+            <div class="race-caption">Mexico City – High altitude circuit with stadium section.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Mexican Grand Prix</div>
+            <div class="race-meta">October 30 – November 1 · Autódromo Hermanos Rodríguez · Mexico</div>
+            <div class="race-flags">Round 20 · North America</div>
+          </div>
+        </article>
+
+        <!-- 21 Brazil -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://motorsportguides.com/wp-content/uploads/2019/01/brazilian-GP-2.jpg" alt="Interlagos Circuit">
+            <div class="race-caption">Interlagos – Anti‑clockwise roller‑coaster in São Paulo.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Brazilian Grand Prix</div>
+            <div class="race-meta">November 6–8 · Interlagos Circuit, São Paulo · Brazil</div>
+            <div class="race-flags">Round 21 · South America</div>
+          </div>
+        </article>
+
+        <!-- 22 USA Las Vegas -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://data.bacinger.net/file/hermod/hi-res-image/f1/las-vegas-f1-from-air-og.jpg" alt="Las Vegas Street Circuit">
+            <div class="race-caption">Las Vegas – Strip‑based night street race.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Las Vegas Grand Prix</div>
+            <div class="race-meta">November 19–21 · Las Vegas Street Circuit · USA</div>
+            <div class="race-flags">Round 22 · North America</div>
+          </div>
+        </article>
+
+        <!-- 23 Qatar -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://static.wixstatic.com/media/1a2590_e84a809b35c14b19b3ad963c5d10a400~mv2.jpg/v1/fill/w_752,h_502,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/1a2590_e84a809b35c14b19b3ad963c5d10a400~mv2.jpg" alt="Lusail International Circuit">
+            <div class="race-caption">Lusail – Fast, flowing circuit north of Doha.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Qatar Grand Prix</div>
+            <div class="race-meta">November 27–29 · Lusail International Circuit · Qatar</div>
+            <div class="race-flags">Round 23 · Middle East</div>
+          </div>
+        </article>
+
+        <!-- 24 Abu Dhabi -->
+        <article class="race-card">
+          <div class="race-image-wrapper">
+            <img src="https://www.etihad.com/content/dam/eag/etihadairways/etihadcom/2025/global/products/abu-dhabi/f1/yas-circuit-aerial.jpg?imwidth=414&imdensity=2.625" alt="Yas Marina Circuit, Abu Dhabi">
+            <div class="race-caption">Yas Marina – Dusk‑to‑night finale on Yas Island.</div>
+          </div>
+          <div class="race-content">
+            <div class="race-title">Abu Dhabi Grand Prix</div>
+            <div class="race-meta">December 4–6 · Yas Marina Circuit · Abu Dhabi</div>
+            <div class="race-flags">Round 24 · Season finale</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Sprint explanation -->
+    <section class="section">
+      <h2>Sprint Events in 2026</h2>
+      <p>
+        Six weekends host Sprint races on Saturday, providing extra points and an additional flat‑out race alongside traditional qualifying and the main Grand Prix.
+      </p>
+      <p>
+        For 2026, Sprint events are scheduled at Shanghai, Miami, Montreal, Silverstone, Zandvoort, and Marina Bay, highlighted by the red Sprint badges in the calendar above.
+      </p>
+    </section>
+
+    <!-- NEW: Season Flow and Highlights -->
+    <section class="section">
+      <h2>Season Flow and Highlights</h2>
+      <p>
+        The season starts with races in Oceania and Asia, then moves to the Middle East in April.
+      </p>
+      <p>
+        The European summer has a packed sequence of iconic tracks including Monaco, Silverstone, Spa, and Monza.
+      </p>
+      <p>
+        North America hosts multiple key races in Miami, Canada, Austin, Las Vegas, and Mexico City.
+      </p>
+      <p>
+        The season finishes with races in South America and the Middle East, concluding in Abu Dhabi.
+      </p>
+      <p>
+        This layout facilitates smoother logistics by grouping races regionally and balances the racing calendar globally.
+      </p>
+    </section>
+  </main>
+
+  <!-- Modal for ONLY the images after the paragraphs -->
+  <div class="modal" id="imageModal">
+    <div class="modal-content">
+      <span class="modal-close" id="modalClose">&times;</span>
+      <img src="" alt="Full view" id="modalImg">
+      <div id="modalCaption" class="modal-caption"></div>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalCaption = document.getElementById('modalCaption');
+    const modalClose = document.getElementById('modalClose');
+
+    // ONLY the images after paragraphs (section-figure) open modal with caption
+    document.querySelectorAll('.section-figure').forEach(fig => {
+      fig.addEventListener('click', () => {
+        const img = fig.querySelector('img');
+        const fullSrc = fig.getAttribute('data-full') || img.src;
+        const captionText = fig.querySelector('figcaption')
+          ? fig.querySelector('figcaption').textContent
+          : '';
+        modalImg.src = fullSrc;
+        modalCaption.textContent = captionText;
+        modal.classList.add('open');
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('open');
+      modalImg.src = '';
+      modalCaption.textContent = '';
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('open');
+        modalImg.src = '';
+        modalCaption.textContent = '';
+      }
+    });
+  </script>
+</body>
+</html>

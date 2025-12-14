@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fernando Alonso | F1 Scrapbook Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(135deg, #d4f4d4 0%, #a8e6a8 100%);
+  color: #222;
+  line-height: 1.7;
+}
+/* NAVBAR */
+.navbar { display: flex; align-items: center; background: #1a2039; padding: 0 40px; height: 64px; position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; color: #ffffff; margin-right: 38px; text-decoration: none; }
+.nav-menu { display: flex; align-items: center; gap: 20px; }
+.nav-link { color: #fff; text-decoration: none; font-weight: 600; padding: 6px 10px; border-radius: 6px; transition: background 0.2s; }
+.nav-link:hover { background: rgba(0,0,0,0.2); }
+/* LAYOUT */
+.wrapper { max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px; display: flex; flex-wrap: wrap; gap: 40px; }
+/* Aston Martin Green Theme */
+.photo-pane { flex: 1 1 450px; position: relative; border: 3px solid #16a34a; border-radius: 12px; overflow: hidden; box-shadow: 8px 8px 0 #4ade80; background: #f0fdf4; }
+.photo-pane::before, .photo-pane::after { content: ""; position: absolute; width: 80px; height: 25px; background: rgba(255,255,255,0.8); border: 1px solid #86efac; transform: rotate(-6deg); top: 14px; left: 30%; }
+.photo-pane::after { top: auto; bottom: 16px; right: 25%; transform: rotate(8deg); }
+.photo-pane img { width: 100%; height: 100%; object-fit: cover; }
+.info-pane { flex: 1 1 650px; display: flex; flex-direction: column; gap: 25px; }
+.name-header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.name-header img.flag { width: 36px; height: 24px; border-radius: 3px; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+h1 { font-size: 2.5rem; font-weight: 800; }
+.subtitle { font-size: 1.1rem; color: #444; margin-bottom: 12px; }
+.details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px 25px; background: #ecfdf5; border: 2px dashed #4ade80; border-radius: 10px; padding: 18px 22px; box-shadow: 3px 3px 0 #86efac; }
+.details-grid div p { margin-bottom: 2px; }
+.details-grid strong { display: block; color: #166534; }
+.note { background: #ecfdf5; padding: 14px 18px; border: 2px solid #86efac; border-radius: 10px; width: fit-content; box-shadow: 4px 4px 0 #4ade80; position: relative; }
+.note::before { content: ""; position: absolute; width: 18px; height: 18px; background: #16a34a; border-radius: 50%; top: -9px; left: 20px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+.note h3 { margin-bottom: 6px; font-size: 1.05rem; color: #166534; }
+.photo-collage { display: flex; flex-wrap: wrap; gap: 16px; }
+.photo-thumb { position: relative; background: #fff; padding: 6px; border: 2px solid #86efac; border-radius: 8px; box-shadow: 3px 3px 0 #4ade80; cursor: pointer; transition: transform 0.2s; }
+.photo-thumb:hover { transform: rotate(-2deg) scale(1.03); }
+.photo-thumb img { width: 180px; height: 120px; object-fit: cover; border-radius: 5px; }
+.photo-thumb p { text-align: center; font-size: 0.85rem; margin-top: 5px; color: #166534; }
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000; }
+.lightbox.active { display: flex; }
+.lightbox-content { background: #ecfdf5; padding: 20px; border-radius: 10px; text-align: center; border: 2px solid #86efac; }
+.lightbox-content img { max-width: 90vw; max-height: 80vh; border-radius: 8px; }
+.lightbox-content p { margin-top: 10px; color: #166534; }
+.close-btn { position: absolute; top: 20px; right: 28px; font-size: 2rem; color: #fff; cursor: pointer; }
+@media (max-width: 850px) { .wrapper { flex-direction: column; } .photo-pane { height: 400px; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="logo">F1 Guide</a>
+  <div class="nav-menu">
+    <a href="Current-drivers.html" class="nav-link">← Back to Drivers</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+  <div class="photo-pane">
+    <img src="Alonso.avif" alt="Fernando Alonso">
+  </div>
+  <div class="info-pane">
+    <div class="name-header">
+      <h1>Fernando Alonso</h1>
+      <img src="https://flagcdn.com/w40/es.png" alt="Spanish Flag" class="flag">
+    </div>
+    <p class="subtitle">Aston Martin · Spanish · #14</p>
+
+    <div class="details-grid">
+      <div><strong>Born</strong><p>29/07/1981, Oviedo, Spain</p></div>
+      <div><strong>Nationality</strong><p>Spanish</p></div>
+      <div><strong>Racing number</strong><p>14</p></div>
+      <div><strong>F1 debut</strong><p>2001 Australian Grand Prix</p></div>
+      <div><strong>Height</strong><p>171 cm (5 ft 7 in)</p></div>
+      <div><strong>World Championships</strong><p>2 (2005-2006)</p></div>
+      <div><strong>Wins</strong><p>32</p></div>
+      <div><strong>Pole positions</strong><p>22</p></div>
+      <div><strong>Podiums</strong><p>106</p></div>
+      <div><strong>Fastest laps</strong><p>26</p></div>
+      <div><strong>Favourite circuit</strong><p>Barcelona, Spain</p></div>
+      <div><strong>DNF's</strong><p>83</p></div>
+    </div>
+
+    <div class="note">
+      <h3>Career Notes</h3>
+      <p>2x World Champion. Most race starts (425+). Aston Martin since 2023. 8 podiums in 2023 season.</p>
+    </div>
+
+    <div class="note">
+      <h3>2025 Season</h3>
+      <p>10th in championship (56 points). Consistent points scorer. 400th GP start milestone in Mexico.</p>
+    </div>
+
+    <div class="photo-collage">
+      <div class="photo-thumb" data-image="https://cdn.motorsport.com/images/mgl/0RrQl3v0/s1000/fernando-alonso-aston-martin-r.jpg" data-caption="Aston Martin AMR25 in full attack mode.">
+        <img src="https://cdn.motorsport.com/images/mgl/0RrQl3v0/s1000/fernando-alonso-aston-martin-r.jpg" alt="Aston Martin">
+        <p>Aston Martin 2025</p>
+      </div>
+      <div class="photo-thumb" data-image="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/manual/2023/BahrainGP/alonso-podium-bahrain.webp" data-caption="2023 podium celebration with Aston Martin.">
+        <img src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/manual/2023/BahrainGP/alonso-podium-bahrain.webp" alt="Podium">
+        <p>2023 Podium</p>
+      </div>
+      <div class="photo-thumb" data-image="https://soymotor.com/sites/default/files/styles/amp_metadata_content_image/public/imagenes/noticia/alonso-renault-soymotor_4.jpg.webp?itok=6NdVQVex" data-caption="2006 World Championship glory.">
+        <img src="https://soymotor.com/sites/default/files/styles/amp_metadata_content_image/public/imagenes/noticia/alonso-renault-soymotor_4.jpg.webp?itok=6NdVQVex" alt="Title">
+        <p>2nd Title 2006</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <span class="close-btn" id="closeBtn">&times;</span>
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="">
+    <p id="lightboxCaption"></p>
+  </div>
+</div>
+
+<script>
+const thumbs = document.querySelectorAll('.photo-thumb');
+const lightbox = document.getElementById('lightbox');
+const img = document.getElementById('lightboxImg');
+const caption = document.getElementById('lightboxCaption');
+const closeBtn = document.getElementById('closeBtn');
+thumbs.forEach(t => { t.addEventListener('click', () => { img.src = t.dataset.image; caption.textContent = t.dataset.caption; lightbox.classList.add('active'); }); });
+closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+</script>
+</body>
+</html>

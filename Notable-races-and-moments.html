@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Notable Races and Moments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #fff;
+      color: #000;
+      line-height: 1.6;
+    }
+
+    /* ===== NAVBAR - EXACT MATCH FROM WHAT-IS-F1 PAGE ===== */
+    .navbar {
+      display: flex;
+      align-items: center;
+      background: #1a2039;      
+      padding: 0 15px;
+      height: 52px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 35px;
+    }
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      color: #fff;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 4px;
+      margin-left: auto;
+    }
+    .hamburger span {
+      width: 22px;
+      height: 2.5px;
+      background: #fff;
+      margin: 2.5px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-item {
+      position: relative;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+    .nav-link {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: 6px;
+      transition: background 0.22s;
+    }
+    .nav-link:hover { 
+      background: #1a2039; 
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      min-width: 150px;
+      max-height: 60vh;
+      overflow-y: auto;
+      background: #ffffff;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.18);
+      padding: 4px 0;
+    }
+    .nav-item:hover .dropdown,
+    .nav-item:focus-within .dropdown {
+      display: block;
+    }
+    .dropdown-link {
+      display: block;
+      color: #000000;
+      padding: 5px 12px;
+      text-decoration: none;
+      font-size: 0.88em;
+      transition: background 0.15s;
+    }
+    .dropdown-link:hover {
+      background: #f2f2f2;
+      color: #e21b3c;
+    }
+    .nav-item:last-child .dropdown {
+      left: auto;
+      right: 0;
+      top: 100% !important;
+      border-radius: 0 0 10px 10px !important;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-menu {
+        position: fixed;
+        top: 52px;
+        left: 0;
+        width: 100vw;
+        height: calc(100vh - 52px);
+        background: rgba(10,15,26,0.95);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        padding: 20px 0;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1001;
+      }
+      .nav-menu.active { transform: translateY(0); }
+      .nav-item { width: 90%; text-align: center; }
+      .nav-link { display: block; padding: 15px; font-size: 1.1rem; }
+      .dropdown {
+        position: static;
+        width: 100%;
+        max-height: none;
+        background: #ffffff;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .dropdown-link {
+        color: #000000;
+      }
+      .navbar {
+        padding: 0 12px;
+      }
+    }
+
+    /* ALL YOUR EXISTING PAGE STYLES (unchanged) */
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 16px 60px;
+    }
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .resource-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+    }
+    .resource-links a {
+      color: #e21b3c;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .resource-links a:hover { text-decoration: underline; }
+    .section {
+      margin-bottom: 32px;
+    }
+    .section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    .moment-card {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 20px;
+      padding: 18px;
+      border-radius: 16px;
+      background: #f7f7f7;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+      margin-bottom: 18px;
+    }
+    .moment-text h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .moment-meta {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 6px;
+    }
+    .moment-text p {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+    @media (max-width: 850px) {
+      .moment-card {
+        grid-template-columns: 1fr;
+      }
+    }
+    .zoom-image-wrapper {
+      position: relative;
+      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .zoom-image-wrapper img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+    .zoom-image-wrapper:hover img {
+      transform: scale(1.05);
+      filter: brightness(0.88);
+    }
+    .zoom-caption {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+      color: #fff;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+    @media (max-width: 800px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    .mini-card {
+      padding: 16px;
+      border-radius: 16px;
+      background: #f7f7f7;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      display: grid;
+      grid-template-columns: 1.4fr 2fr;
+      gap: 14px;
+      align-items: center;
+    }
+    @media (max-width: 650px) {
+      .mini-card { grid-template-columns: 1fr; }
+    }
+    .mini-card h3 {
+      font-size: 1.02rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .mini-card p {
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+    .modal.open { display: flex; }
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+      text-align: center;
+    }
+    .modal-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      display: block;
+      border-radius: 10px;
+      margin: 0 auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: -32px;
+      right: 0;
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .modal-caption {
+      margin-top: 8px;
+      color: #fff;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR WITH HAMBURGER (exact copy from What-is-F1 page) -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">F1 Guide</a>
+    <div class="nav-menu" id="navMenu">
+      <div class="nav-item">
+        <a href="#" class="nav-link">About F1</a>
+        <div class="dropdown">
+          <a href="what-is-formula1.html" class="dropdown-link">What is Formula 1</a>
+          <a href="History-of-F1.html" class="dropdown-link">History of F1</a>
+          <a href="F1-glossary.html" class="dropdown-link">F1 Glossary</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Teams And Drivers</a>
+        <div class="dropdown">
+          <a href="2025-constructors.html" class="dropdown-link">2025 Constructors Championship</a>
+          <a href="Current-drivers.html" class="dropdown-link">Current Drivers</a>
+          <a href="Notable-past-drivers.html" class="dropdown-link">Notable Past Drivers</a>
+          <a href="Driver-academies.html" class="dropdown-link">Driver Academies</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Cars and Technology</a>
+        <div class="dropdown">
+          <a href="Car-designs-and-innovations.html" class="dropdown-link">Car Design and Innovations</a>
+          <a href="Power-units-and-aerodynamics.html" class="dropdown-link">Power Units & Aerodynamics</a>
+          <a href="Technical-rules.html" class="dropdown-link">Technical Rules</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Tires</a>
+        <div class="dropdown">
+          <a href="Tire-types-and-compounds.html" class="dropdown-link">Tire Types and Compounds</a>
+          <a href="Tire-rules-and-allocations.html" class="dropdown-link">Tire Rules and Allocations</a>
+          <a href="Tire-strategy.html" class="dropdown-link">Tire Strategy</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Race and Circuits</a>
+        <div class="dropdown">
+          <a href="Race-calender.html" class="dropdown-link">Race Calendar</a>
+          <a href="GP-circuits.html" class="dropdown-link">GP Circuits</a>
+          <a href="Notable-races-and-moments.html" class="dropdown-link">Notable Races and Moments</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">How F1 Works</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link">Race Formats and Scoring</a>
+          <a href="#" class="dropdown-link">Qualifying & Sprint Races</a>
+          <a href="#" class="dropdown-link">Race Flags and Signals</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Fan Zone</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link">How to Watch and Attend</a>
+          <a href="#" class="dropdown-link">Fan Clubs and Experiences</a>
+          <a href="#" class="dropdown-link">Trivia and Fun Facts</a>
+          <a href="#" class="dropdown-link">Scrapbook</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link">Media</a>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link">Photo Gallery</a>
+          <a href="#" class="dropdown-link">Video Highlights</a>
+        </div>
+      </div>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- YOUR EXISTING CONTENT (completely unchanged) -->
+  <main class="wrapper">
+    <h1>Notable Races and Moments</h1>
+    <p class="subtitle">
+      Explore some of Formula 1's most dramatic races, title deciders, and rivalries that shaped the sport's history.
+    </p>
+
+    <!-- Iconic race moments -->
+    <section class="section">
+      <h2>Iconic Championship Races</h2>
+
+      <!-- 1. 1976 Japanese GP -->
+      <article class="moment-card">
+        <div class="moment-text">
+          <h3>1. 1976 Japanese Grand Prix – Lauda vs Hunt Championship Climax</h3>
+          <p class="moment-meta">Fuji Speedway · Torrential rain · Title decided by 1 point</p>
+          <p>
+            In treacherous conditions at Fuji, Niki Lauda retired early, prioritizing safety after his near‑fatal Nürburgring crash earlier that season.
+          </p>
+          <p>
+            James Hunt battled through the spray to take third place, just enough to win the championship by a single point and close out one of F1's most intense rivalries.
+          </p>
+        </div>
+        <div class="zoom-image-wrapper"
+             data-full="https://slotracer.online/track-plans/ninco/images/nin-1976/hunt-lauda-02.jpg"
+             data-caption="Hunt and Lauda's 1976 title showdown in torrential rain at Fuji.">
+          <img src="https://slotracer.online/track-plans/ninco/images/nin-1976/hunt-lauda-02.jpg" alt="James Hunt in wet 1976 Japanese Grand Prix">
+          <div class="zoom-caption">Hunt vs Lauda in the rain at Fuji, 1976.</div>
+        </div>
+      </article>
+
+      <!-- 2. 1984 Monaco GP -->
+      <article class="moment-card">
+        <div class="moment-text">
+          <h3>2. 1984 Monaco Grand Prix – Senna’s Rain Masterclass</h3>
+          <p class="moment-meta">Circuit de Monaco · Torrential rain · Future legend announced</p>
+          <p>
+            In a small Toleman car, Ayrton Senna carved through the field on a soaked Monaco track, showcasing car control that eclipsed more established rivals.
+          </p>
+          <p>
+            The race ended early under controversial circumstances, but Senna’s charge in the wet signalled the arrival of a driver destined to become an all‑time great.
+          </p>
+        </div>
+        <div class="zoom-image-wrapper"
+             data-full="https://mclaren.bloomreach.io/delivery/resources/content/gallery/mclaren-racing/heritage/heritage-drivers/ayrton-senna/editorial/senna-in-monaco/senna-in-monaco-1984.jpg"
+             data-caption="Ayrton Senna charging through the rain at Monaco in 1984.">
+          <img src="https://mclaren.bloomreach.io/delivery/resources/content/gallery/mclaren-racing/heritage/heritage-drivers/ayrton-senna/editorial/senna-in-monaco/senna-in-monaco-1984.jpg" alt="Senna in wet 1984 Monaco Grand Prix">
+          <div class="zoom-caption">Senna’s breakthrough drive at a soaked Monaco, 1984.</div>
+        </div>
+      </article>
+
+      <!-- 3. 2008 Brazilian GP -->
+      <article class="moment-card">
+        <div class="moment-text">
+          <h3>3. 2008 Brazilian Grand Prix – Hamilton’s Final‑Lap Title</h3>
+          <p class="moment-meta">Interlagos · Changeable weather · Last‑corner championship decider</p>
+          <p>
+            Lewis Hamilton needed fifth place to secure his first title while local hero Felipe Massa chased a home‑soil championship in front of Brazilian fans.
+          </p>
+          <p>
+            In late‑race rain, Hamilton overtook Timo Glock at the final corner on the last lap, taking fifth and snatching the championship by a single point moments after Massa crossed the line.
+          </p>
+        </div>
+        <div class="zoom-image-wrapper"
+             data-full="https://media.cnn.com/api/v1/images/stellar/prod/181107153932-hamilton-crosses-line-2008.jpg?q=w_3998,h_2378,x_0,y_0,c_fill"
+             data-caption="Hamilton and Massa’s dramatic 2008 title decider at Interlagos.">
+          <img src="https://media.cnn.com/api/v1/images/stellar/prod/181107153932-hamilton-crosses-line-2008.jpg?q=w_3998,h_2378,x_0,y_0,c_fill" alt="Hamilton 2008 Brazil final lap moment">
+          <div class="zoom-caption">Hamilton’s last‑corner title win at Interlagos, 2008.</div>
+        </div>
+      </article>
+
+      <!-- 4. 1993 European GP -->
+      <article class="moment-card">
+        <div class="moment-text">
+          <h3>4. 1993 European Grand Prix – Senna’s Donington Opening Lap</h3>
+          <p class="moment-meta">Donington Park · Mixed conditions · Legendary first lap</p>
+          <p>
+            Starting fourth on a damp track, Ayrton Senna overtook three cars on the opening lap, using superior grip and racecraft in changing conditions.
+          </p>
+          <p>
+            He pulled away from the field and controlled the race from the front, reinforcing his reputation as perhaps the greatest wet‑weather driver in F1 history.
+          </p>
+        </div>
+        <div class="zoom-image-wrapper"
+             data-full="https://www.motorsportmagazine.com/wp-content/uploads/2023/04/Ayrton-Senna-passes-Alain-Prost-to-take-the-lead-of-the-1993-Donington-European-Grand-Prix-800x450.jpg"
+             data-caption="Senna’s famed opening lap at Donington in 1993.">
+          <img src="https://www.motorsportmagazine.com/wp-content/uploads/2023/04/Ayrton-Senna-passes-Alain-Prost-to-take-the-lead-of-the-1993-Donington-European-Grand-Prix-800x450.jpg" alt="Senna Donington 1993 opening lap">
+          <div class="zoom-caption">Senna’s iconic Donington charge in changing conditions.</div>
+        </div>
+      </article>
+
+      <!-- 5. 2011 Canadian GP -->
+      <article class="moment-card">
+        <div class="moment-text">
+          <h3>5. 2011 Canadian Grand Prix – Button’s Epic Comeback</h3>
+          <p class="moment-meta">Montreal · Record‑length race · Last‑lap victory</p>
+          <p>
+            Jenson Button endured collisions, penalties, and six pit stops during a four‑hour rain‑affected race that included multiple safety cars and a red flag.
+          </p>
+          <p>
+            Late on, he pressured Sebastian Vettel into a mistake on the final lap, snatching a stunning victory after charging from last place.
+          </p>
+        </div>
+        <div class="zoom-image-wrapper"
+             data-full="https://cdn-3.motorsport.com/images/amp/2GmlqMr6/s6/f1-canadian-gp-2011-jenson-but.jpg"
+             data-caption="Jenson Button’s late‑race charge to victory in Montreal, 2011.">
+          <img src="https://cdn-3.motorsport.com/images/amp/2GmlqMr6/s6/f1-canadian-gp-2011-jenson-but.jpg" alt="Jenson Button 2011 Canadian Grand Prix">
+          <div class="zoom-caption">Button’s last‑lap win in a marathon Canadian Grand Prix.</div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Rivalries -->
+    <section class="section">
+      <h2>Iconic Rivalries</h2>
+      <div class="grid-2">
+
+        <article class="mini-card">
+          <div class="zoom-image-wrapper"
+               data-full="https://upload.wikimedia.org/wikipedia/commons/8/8a/Senna_and_Prost_on_the_podium%2C_Montreal_1988_%28Cropped%29.jpg"
+               data-caption="Senna and Prost fighting for titles with McLaren and later Ferrari.">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Senna_and_Prost_on_the_podium%2C_Montreal_1988_%28Cropped%29.jpg" alt="Senna and Prost rivalry">
+            <div class="zoom-caption">Senna vs Prost – the rivalry that defined an era.</div>
+          </div>
+          <div>
+            <h3>Senna vs Prost</h3>
+            <p>
+              A decade‑long rivalry that featured controversial collisions at Suzuka, intense qualifying battles, and multiple title showdowns.
+            </p>
+            <p>
+              Their fight pushed both drivers and teams to new heights and helped define late‑1980s and early‑1990s Formula 1.
+            </p>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <div class="zoom-image-wrapper"
+               data-full="https://i.redd.it/hunt-vs-lauda-f1s-greatest-racing-rivals-2013-v0-mcnm3v2qy0be1.jpg?width=2709&format=pjpg&auto=webp&s=7437ff418d58a79b3b807497cec73e352ffd25e9"
+               data-caption="Lauda and Hunt’s contrasting personalities during the 1976 season.">
+            <img src="https://i.redd.it/hunt-vs-lauda-f1s-greatest-racing-rivals-2013-v0-mcnm3v2qy0be1.jpg?width=2709&format=pjpg&auto=webp&s=7437ff418d58a79b3b807497cec73e352ffd25e9" alt="Lauda and Hunt rivalry">
+            <div class="zoom-caption">Lauda vs Hunt – respect, risk, and rivalry in the 1970s.</div>
+          </div>
+          <div>
+            <h3>Lauda vs Hunt</h3>
+            <p>
+              A clash of personalities and approaches, from Lauda’s meticulous precision to Hunt’s aggressive flair, culminating in the dramatic 1976 title fight.
+            </p>
+            <p>
+              Their story highlighted questions of risk, courage, and where the limits of safety should be drawn in the sport.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Additional dramatic moments -->
+    <section class="section">
+      <h2>Additional Dramatic Moments</h2>
+      <div class="grid-2">
+
+        <article class="mini-card">
+          <div class="zoom-image-wrapper"
+               data-full="Brazil-2019.png"
+               data-caption="Max Verstappen’s aggressive, controlled drive at Interlagos in 2019.">
+            <img src="Brazil-2019.png" alt="Verstappen Brazil 2019">
+            <div class="zoom-caption">Verstappen’s wheel‑to‑wheel masterclass in Brazil, 2019.</div>
+          </div>
+          <div>
+            <h3>Verstappen in Brazil 2019</h3>
+            <p>
+              Max Verstappen delivered a relentless drive at Interlagos, overtaking key rivals on track and managing safety‑car restarts with confidence.
+            </p>
+            <p>
+              His performance showcased racecraft, composure, and decisive overtakes in one of his standout early career wins.
+            </p>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <div class="zoom-image-wrapper"
+               data-full="https://cdn-1.motorsport.com/static/img/archive/autosport/news/152920_1001390/s8/1001390.jpg"
+               data-caption="Kimi Räikkönen sealing the 2007 title after a late‑season surge.">
+            <img src="https://cdn-1.motorsport.com/static/img/archive/autosport/news/152920_1001390/s8/1001390.jpg" alt="Raikkonen 2007 title">
+            <div class="zoom-caption">Räikkönen’s comeback title at Interlagos, 2007.</div>
+          </div>
+          <div>
+            <h3>Räikkönen’s 2007 Comeback</h3>
+            <p>
+              Kimi Räikkönen overturned a substantial points deficit with a late‑season charge, winning the final race in Brazil to claim the 2007 championship.
+            </p>
+            <p>
+              The tight points spread between Ferrari and McLaren added extra tension to a title fight decided only at the very end.
+            </p>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <div class="zoom-image-wrapper"
+               data-full="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/manual/Misc/2021manual/2021HungarianGrandPrixAdds/GettyImages-826756950.webp"
+               data-caption="Niki Lauda’s remarkable return to racing just weeks after his Nürburgring crash.">
+            <img src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/manual/Misc/2021manual/2021HungarianGrandPrixAdds/GettyImages-826756950.webp" alt="Lauda comeback 1976">
+            <div class="zoom-caption">Lauda’s courageous return weeks after his accident.</div>
+          </div>
+          <div>
+            <h3>Lauda’s 1976 Comeback</h3>
+            <p>
+              After suffering severe burns at the Nürburgring, Lauda returned to the cockpit just six weeks later, still heavily bandaged.
+            </p>
+            <p>
+              His decision to race again so quickly became one of the sport’s most powerful examples of courage and determination.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  <!-- Modal (unchanged) -->
+  <div class="modal" id="imageModal">
+    <div class="modal-content">
+      <span class="modal-close" id="modalClose">&times;</span>
+      <img src="" alt="Full view" id="modalImg">
+      <div id="modalCaption" class="modal-caption"></div>
+    </div>
+  </div>
+
+  <script>
+    // NAVBAR TOGGLE FUNCTION
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('active');
+    }
+
+    // YOUR EXISTING MODAL SCRIPT (unchanged)
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalCaption = document.getElementById('modalCaption');
+    const modalClose = document.getElementById('modalClose');
+
+    document.querySelectorAll('.zoom-image-wrapper').forEach(wrapper => {
+      wrapper.addEventListener('click', () => {
+        const img = wrapper.querySelector('img');
+        const fullSrc = wrapper.getAttribute('data-full') || img.src;
+        const captionText = wrapper.getAttribute('data-caption') || '';
+        modalImg.src = fullSrc;
+        modalCaption.textContent = captionText;
+        modal.classList.add('open');
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      modal.classList.remove('open');
+      modalImg.src = '';
+      modalCaption.textContent = '';
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('open');
+        modalImg.src = '';
+        modalCaption.textContent = '';
+      }
+    });
+  </script>
+</body>
+</html>

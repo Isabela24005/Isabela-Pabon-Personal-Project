@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kimi Antonelli | F1 Scrapbook Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(135deg, #e4f9f1 0%, #8dbfae 100%);
+  color: #222;
+  line-height: 1.7;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  align-items: center;
+  background: #1a2039;
+  padding: 0 40px;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ffffff;
+  margin-right: 38px;
+  text-decoration: none;
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.nav-link:hover { background: rgba(0,0,0,0.2); }
+
+/* LAYOUT */
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* Photo Side - Mercedes Silver Theme */
+.photo-pane {
+  flex: 1 1 450px;
+  position: relative;
+  border: 3px solid #a8b5c2;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 8px 8px 0 #c0cad5;
+  background: #f8f9fa;
+}
+.photo-pane::before, .photo-pane::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 25px;
+  background: rgba(255,255,255,0.7);
+  border: 1px solid #b0c4de;
+  transform: rotate(-6deg);
+  top: 14px;
+  left: 30%;
+}
+.photo-pane::after {
+  top: auto;
+  bottom: 16px;
+  right: 25%;
+  transform: rotate(8deg);
+}
+.photo-pane img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info Side */
+.info-pane {
+  flex: 1 1 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Title + Flag */
+.name-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.name-header img.flag {
+  width: 36px;
+  height: 24px;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+/* Info Grid - Mercedes Colors */
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px 25px;
+  background: #f0f7ff;
+  border: 2px dashed #6baed6;
+  border-radius: 10px;
+  padding: 18px 22px;
+  box-shadow: 3px 3px 0 #b8d2ec;
+}
+.details-grid div p {
+  margin-bottom: 2px;
+}
+.details-grid strong {
+  display: block;
+  color: #2a5a8a;
+}
+
+/* Notes - Mercedes Theme */
+.note {
+  background: #f8fafc;
+  padding: 14px 18px;
+  border: 2px solid #a8c4e0;
+  border-radius: 10px;
+  width: fit-content;
+  box-shadow: 4px 4px 0 #c0d2e8;
+  position: relative;
+}
+.note::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #6baed6;
+  border-radius: 50%;
+  top: -9px;
+  left: 20px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+.note h3 {
+  margin-bottom: 6px;
+  font-size: 1.05rem;
+  color: #2a5a8a;
+}
+
+/* Photo Collage */
+.photo-collage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.photo-thumb {
+  position: relative;
+  background: #fff;
+  padding: 6px;
+  border: 2px solid #b0c4de;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 #c0d2e8;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.photo-thumb:hover { transform: rotate(-2deg) scale(1.03); }
+.photo-thumb img {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.photo-thumb p {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  color: #2a5a8a;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+.lightbox.active { display: flex; }
+.lightbox-content {
+  background: #f8f9fc;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  border: 2px solid #a8c4e0;
+}
+.lightbox-content img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: 8px;
+}
+.lightbox-content p {
+  margin-top: 10px;
+  color: #2a5a8a;
+}
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  .wrapper { flex-direction: column; }
+  .photo-pane { height: 400px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="logo">F1 Guide</a>
+  <div class="nav-menu">
+    <a href="Current-drivers.html" class="nav-link">← Back to Drivers</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+  <div class="photo-pane">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Kimi_Antonelli_at_the_2025_US_Grand_Prix_in_Austin%2C_TX_%28cropped%29.jpg" alt="Kimi Antonelli">
+  </div>
+
+  <div class="info-pane">
+    <!-- Name section with flag -->
+    <div class="name-header">
+      <h1>Kimi Antonelli</h1>
+      <img src="https://flagcdn.com/w40/it.png" alt="Italian Flag" class="flag">
+    </div>
+    <p class="subtitle">Mercedes · Italian · #12</p>
+
+    <div class="details-grid">
+      <div><strong>Born</strong><p>25/08/2006, Bologna, Italy</p></div>
+      <div><strong>Nationality</strong><p>Italian</p></div>
+      <div><strong>Racing number</strong><p>12</p></div>
+      <div><strong>F1 debut</strong><p>2025 Australian Grand Prix</p></div>
+      <div><strong>Height</strong><p>178 cm (5 ft 10 in)</p></div>
+      <div><strong>World Championships</strong><p>0</p></div>
+      <div><strong>Wins</strong><p>0</p></div>
+      <div><strong>Pole positions</strong><p>0</p></div>
+      <div><strong>Podiums</strong><p>3</p></div>
+      <div><strong>Fastest laps</strong><p>0</p></div>
+      <div><strong>Favourite circuit</strong><p>Monza, Italy</p></div>
+      <div><strong>DNF's</strong><p>4</p></div>
+    </div>
+
+    <div class="note">
+      <h3>Career Notes</h3>
+      <p>2022 F4 Champion. Mercedes junior sensation, youngest F1 driver since Verstappen. First podium in debut season.</p>
+    </div>
+
+    <div class="note">
+      <h3>2025 Season</h3>
+      <p>Rookie sensation scoring podiums alongside Russell, showing incredible maturity and raw pace.</p>
+    </div>
+
+    <div class="photo-collage">
+      <div class="photo-thumb" data-image="https://images.supersport.com/media/3mnfpga0/kimi-antonelli-podium-25-06-1200.jpg?width=1920&quality=90&format=webp" data-caption="Emotional F1 debut podium celebration with Mercedes team.">
+        <img src="https://images.supersport.com/media/3mnfpga0/kimi-antonelli-podium-25-06-1200.jpg?width=1920&quality=90&format=webp" alt="Debut Podium">
+        <p>Debut Podium</p>
+      </div>
+      <div class="photo-thumb" data-image="https://d3cm515ijfiu6w.cloudfront.net/wp-content/uploads/2025/03/24145957/kimi-antonelli-mercedes-w16-china-2025-planetf1.jpg" data-caption="First laps in the Mercedes W16 during testing.">
+        <img src="https://d3cm515ijfiu6w.cloudfront.net/wp-content/uploads/2025/03/24145957/kimi-antonelli-mercedes-w16-china-2025-planetf1.jpg" alt="Mercedes Testing">
+        <p>Mercedes W16</p>
+      </div>
+      <div class="photo-thumb" data-image="https://static01.nyt.com/athletic/uploads/wp/2025/11/10001055/GettyImages-2245884964-1-scaled.jpg" data-caption="Antonelli celebrates with fans after the São Paolo GP.">
+        <img src="https://static01.nyt.com/athletic/uploads/wp/2025/11/10001055/GettyImages-2245884964-1-scaled.jpg" alt="Monza">
+        <p>São Paolo Magic</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <span class="close-btn" id="closeBtn">&times;</span>
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="">
+    <p id="lightboxCaption"></p>
+  </div>
+</div>
+
+<script>
+const thumbs = document.querySelectorAll('.photo-thumb');
+const lightbox = document.getElementById('lightbox');
+const img = document.getElementById('lightboxImg');
+const caption = document.getElementById('lightboxCaption');
+const closeBtn = document.getElementById('closeBtn');
+
+thumbs.forEach(t => {
+  t.addEventListener('click', () => {
+    img.src = t.dataset.image;
+    caption.textContent = t.dataset.caption;
+    lightbox.classList.add('active');
+  });
+});
+closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) lightbox.classList.remove('active');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pierre Gasly | F1 Scrapbook Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(135deg, #e9d5ff 0%, #c0aed4 100%);
+  color: #222;
+  line-height: 1.7;
+}
+/* NAVBAR */
+.navbar { display: flex; align-items: center; background: #1a2039; padding: 0 40px; height: 64px; position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; color: #ffffff; margin-right: 38px; text-decoration: none; }
+.nav-menu { display: flex; align-items: center; gap: 20px; }
+.nav-link { color: #fff; text-decoration: none; font-weight: 600; padding: 6px 10px; border-radius: 6px; transition: background 0.2s; }
+.nav-link:hover { background: rgba(0,0,0,0.2); }
+/* LAYOUT */
+.wrapper { max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px; display: flex; flex-wrap: wrap; gap: 40px; }
+/* Alpine Purple Theme */
+.photo-pane { flex: 1 1 450px; position: relative; border: 3px solid #8b5cf6; border-radius: 12px; overflow: hidden; box-shadow: 8px 8px 0 #c084fc; background: #faf5ff; }
+.photo-pane::before, .photo-pane::after { content: ""; position: absolute; width: 80px; height: 25px; background: rgba(255,255,255,0.8); border: 1px solid #e9d5ff; transform: rotate(-6deg); top: 14px; left: 30%; }
+.photo-pane::after { top: auto; bottom: 16px; right: 25%; transform: rotate(8deg); }
+.photo-pane img { width: 100%; height: 100%; object-fit: cover; }
+.info-pane { flex: 1 1 650px; display: flex; flex-direction: column; gap: 25px; }
+.name-header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.name-header img.flag { width: 36px; height: 24px; border-radius: 3px; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+h1 { font-size: 2.5rem; font-weight: 800; }
+.subtitle { font-size: 1.1rem; color: #444; margin-bottom: 12px; }
+.details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px 25px; background: #f3e8ff; border: 2px dashed #c084fc; border-radius: 10px; padding: 18px 22px; box-shadow: 3px 3px 0 #e9d5ff; }
+.details-grid div p { margin-bottom: 2px; }
+.details-grid strong { display: block; color: #6b21a8; }
+.note { background: #f3e8ff; padding: 14px 18px; border: 2px solid #e9d5ff; border-radius: 10px; width: fit-content; box-shadow: 4px 4px 0 #c084fc; position: relative; }
+.note::before { content: ""; position: absolute; width: 18px; height: 18px; background: #8b5cf6; border-radius: 50%; top: -9px; left: 20px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+.note h3 { margin-bottom: 6px; font-size: 1.05rem; color: #6b21a8; }
+.photo-collage { display: flex; flex-wrap: wrap; gap: 16px; }
+.photo-thumb { position: relative; background: #fff; padding: 6px; border: 2px solid #e9d5ff; border-radius: 8px; box-shadow: 3px 3px 0 #c084fc; cursor: pointer; transition: transform 0.2s; }
+.photo-thumb:hover { transform: rotate(-2deg) scale(1.03); }
+.photo-thumb img { width: 180px; height: 120px; object-fit: cover; border-radius: 5px; }
+.photo-thumb p { text-align: center; font-size: 0.85rem; margin-top: 5px; color: #6b21a8; }
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: center; justify-content: center; z-index: 2000; }
+.lightbox.active { display: flex; }
+.lightbox-content { background: #f3e8ff; padding: 20px; border-radius: 10px; text-align: center; border: 2px solid #e9d5ff; }
+.lightbox-content img { max-width: 90vw; max-height: 80vh; border-radius: 8px; }
+.lightbox-content p { margin-top: 10px; color: #6b21a8; }
+.close-btn { position: absolute; top: 20px; right: 28px; font-size: 2rem; color: #fff; cursor: pointer; }
+@media (max-width: 850px) { .wrapper { flex-direction: column; } .photo-pane { height: 400px; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="logo">F1 Guide</a>
+  <div class="nav-menu">
+    <a href="Current-drivers.html" class="nav-link">← Back to Drivers</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+  <div class="photo-pane">
+    <img src="https://dk.alpinestars.com/cdn/shop/files/Gasley3.png?v=1751470056&width=1080" alt="Pierre Gasly">
+  </div>
+  <div class="info-pane">
+    <div class="name-header">
+      <h1>Pierre Gasly</h1>
+      <img src="https://flagcdn.com/w40/fr.png" alt="French Flag" class="flag">
+    </div>
+    <p class="subtitle">Alpine · French · #10</p>
+
+    <div class="details-grid">
+      <div><strong>Born</strong><p>07/02/1996, Rouen, France</p></div>
+      <div><strong>Nationality</strong><p>French</p></div>
+      <div><strong>Racing number</strong><p>10</p></div>
+      <div><strong>F1 debut</strong><p>2017 Malaysian Grand Prix</p></div>
+      <div><strong>Height</strong><p>179 cm (5 ft 10 in)</p></div>
+      <div><strong>World Championships</strong><p>0</p></div>
+      <div><strong>Wins</strong><p>1</p></div>
+      <div><strong>Pole positions</strong><p>0</p></div>
+      <div><strong>Podiums</strong><p>5</p></div>
+      <div><strong>Fastest laps</strong><p>3</p></div>
+      <div><strong>Favourite circuit</strong><p>Monaco, Monte Carlo</p></div>
+      <div><strong>DNF's</strong><p>26</p></div>
+    </div>
+
+    <div class="note">
+      <h3>Career Notes</h3>
+      <p>2020 Monza winner (AlphaTauri). Alpine leader since 2023. Consistent points scorer with 5 podiums.</p>
+    </div>
+
+    <div class="note">
+      <h3>2025 Season</h3>
+      <p>18th in championship (22 points). 5 top-10s. Best finishes: 6th Britain, 7th Bahrain.</p>
+    </div>
+
+    <div class="photo-collage">
+      <div class="photo-thumb" data-image="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/manual/Misc/GaslyFeature/XPB_1056281_HiRes_crop.webp" data-caption="Emotional maiden win at Monza 2020.">
+        <img src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000000/content/dam/fom-website/manual/Misc/GaslyFeature/XPB_1056281_HiRes_crop.webp" alt="Monza Win">
+        <p>Monza Victory</p>
+      </div>
+      <div class="photo-thumb" data-image="https://images.ps-aws.com/c?url=https%3A%2F%2Fd3cm515ijfiu6w.cloudfront.net%2Fwp-content%2Fuploads%2F2023%2F08%2F29085954%2Fpierre-gasly-racing-max-verstappen-in-the-wet-at-zandvoort-planetf1.jpg" data-caption="Alpine A525 in full attack mode.">
+        <img src="https://images.ps-aws.com/c?url=https%3A%2F%2Fd3cm515ijfiu6w.cloudfront.net%2Fwp-content%2Fuploads%2F2023%2F08%2F29085954%2Fpierre-gasly-racing-max-verstappen-in-the-wet-at-zandvoort-planetf1.jpg" alt="Alpine">
+        <p>Alpine 2025</p>
+      </div>
+      <div class="photo-thumb" data-image="https://speedcafe.us/wp-content/uploads/2023/09/XPB_1232449_HiRes-1200x801.jpg" data-caption="One of 5 career podium celebrations.">
+        <img src="https://speedcafe.us/wp-content/uploads/2023/09/XPB_1232449_HiRes-1200x801.jpg" alt="Podium">
+        <p>Podium Moment</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <span class="close-btn" id="closeBtn">&times;</span>
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="">
+    <p id="lightboxCaption"></p>
+  </div>
+</div>
+
+<script>
+const thumbs = document.querySelectorAll('.photo-thumb');
+const lightbox = document.getElementById('lightbox');
+const img = document.getElementById('lightboxImg');
+const caption = document.getElementById('lightboxCaption');
+const closeBtn = document.getElementById('closeBtn');
+thumbs.forEach(t => { t.addEventListener('click', () => { img.src = t.dataset.image; caption.textContent = t.dataset.caption; lightbox.classList.add('active'); }); });
+closeBtn.addEventListener('click', () => lightbox.classList.remove('active'));
+lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+</script>
+</body>
+</html>
